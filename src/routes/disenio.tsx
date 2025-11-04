@@ -1,16 +1,19 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
-
-// Define las letras
-const LETRAS = 'ABCDEFGHIJLMNOPQRSTUVXYZ'.split('')
-const NUM_LETRAS = LETRAS.length
-const ANGULO_POR_LETRA = 360 / NUM_LETRAS
+import Ejemplo from '../Ejemplo.json'
+import Modal from '@/components/Modal'
 
 export const Route = createFileRoute('/disenio')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
+  const [IsRoscoJson, SetIsRoscoJson] = useState<EditLetra[]>(Ejemplo)
+  const [isOpen, setIsOpen] = useState<boolean>(false) // Para abrir y cerrar el modal
+  const [isSelected, setIsSelected] = useState<string>('A') // Para abrir y cerrar el modal
+  
+  const NUM_LETRAS = Ejemplo.length
+  const ANGULO_POR_LETRA = 360 / NUM_LETRAS
   // --- LÓGICA DE LAYOUT ---
   const [radio, setRadio] = useState(0)
   const roscoRef = useRef<HTMLDivElement | null>(null)
@@ -33,7 +36,7 @@ function RouteComponent() {
           className="relative w-[500px] h-[500px] rounded-full border-2 border-gray-400"
         >
           {radio > 0 &&
-            LETRAS.map((letra, index) => {
+            IsRoscoJson.map((letra, index) => {
               const angulo = ANGULO_POR_LETRA * index
 
               // 1. Estilo para el contenedor de la letra (el que rota)
@@ -58,23 +61,31 @@ function RouteComponent() {
               }
 
               return (
-                <div
-                  key={letra}
-                  style={estiloPosicion}
-                  // Este div invisible gira y posiciona la letra
-                >
-                  {/* Este div visible contiene la letra y la mantiene derecha */}
+                <>
                   <div
-                    style={estiloLetra}
-                    className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-white bg-blue-700"
+                    key={letra.descripcion}
+                    style={estiloPosicion}
+                    onClick={() => {
+                      setIsOpen(true)
+                      setIsSelected(letra.letra)
+                    }}
+                    // Este div invisible gira y posiciona la letra
                   >
-                    {letra}
+                    {/* Este div visible contiene la letra y la mantiene derecha */}
+                    <div
+                      style={estiloLetra}
+                      className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-white hover:cursor-pointer ${letra.descripcion ? 'bg-green-700 hover:bg-green-900' : 'bg-gray-500 hover:bg-gray-700'}`}
+                    >
+                      {letra.letra}
+                    </div>
                   </div>
-                </div>
+                </>
               )
             })}
         </div>
       </div>
+      {/* Aqui tengo el modal mi amorrr C: */}
+      {isOpen && <Modal letra={isSelected} setModal={setIsOpen} JsonRosco={IsRoscoJson}/>}
     </>
   )
 }
