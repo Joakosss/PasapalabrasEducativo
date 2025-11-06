@@ -1,18 +1,31 @@
+import { useRef } from 'react'
 
 type Props = {
   setIsStarted: React.Dispatch<React.SetStateAction<boolean>>
+  SetIsRoscoJson: React.Dispatch<React.SetStateAction<EditLetra[]>>
 }
 
+function ModalStartEdit({ setIsStarted, SetIsRoscoJson }: Props) {
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
 
-
-function ModalStartEdit({ setIsStarted }: Props) {
-  const handleNewGame = ()=> {
+  const handleNewGame = () => {
     setIsStarted(false)
   }
-  const handleLoadGame = ()=> {
-    setIsStarted(false)
+  const handleLoadGame = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = (event) => {
+      try {
+        const json = JSON.parse(event.target?.result as string) as EditLetra[]
+        SetIsRoscoJson(json)
+        setIsStarted(false)
+      } catch (error) {
+        console.error('Error al leer el archivo JSON:', error)
+      }
+    }
+    reader.readAsText(file)
   }
-
 
   return (
     <div
@@ -24,17 +37,17 @@ function ModalStartEdit({ setIsStarted }: Props) {
           {/* Input oculto */}
           <input
             type="file"
-            //ref={fileInputRef}
+            ref={fileInputRef}
             className="hidden"
-            //onChange={SetIsRoscoJson}
+            onChange={handleLoadGame}
           />
 
           {/* Botón visible con tu estilo */}
           <button
             type="button"
-            onClick={handleLoadGame}
             className="text-white bg-blue-700 hover:bg-green-500 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 cursor-pointer"
-            >
+            onClick={() => fileInputRef.current?.click()}
+          >
             Editar rosco
           </button>
         </div>

@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
-import Ejemplo from '../Ejemplo.json'
+import VacioJson from '../Vacio.json'
 import Modal from '@/components/Modal'
 import ModalStartEdit from '@/components/ModalStartEdit'
 
@@ -9,12 +9,12 @@ export const Route = createFileRoute('/disenio')({
 })
 
 function RouteComponent() {
-  const [IsRoscoJson, SetIsRoscoJson] = useState<EditLetra[]>(Ejemplo)
+  const [IsRoscoJson, SetIsRoscoJson] = useState<EditLetra[]>(VacioJson)
   const [isOpen, setIsOpen] = useState<boolean>(false) // Para abrir y cerrar el modal
   const [isSelected, setIsSelected] = useState<string>('A') // Para abrir y cerrar el modal
   const [isStarted, setIsStarted] = useState<boolean>(true) // Para abrir y cerrar el modal de inicio
 
-  const NUM_LETRAS = Ejemplo.length
+  const NUM_LETRAS = VacioJson.length
   const ANGULO_POR_LETRA = 360 / NUM_LETRAS
   // --- LÓGICA DE LAYOUT ---
   const [radio, setRadio] = useState(0)
@@ -27,9 +27,28 @@ function RouteComponent() {
     }
   }, [])
 
+  const handleDownloadRosco = (rosco: EditLetra[]) => {
+    const json = JSON.stringify(rosco, null, 2)
+    const blob = new Blob([json], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'rosco.json'
+    a.click()
+
+    URL.revokeObjectURL(url)
+  }
+
   return (
     <>
-      {isStarted && <ModalStartEdit setIsStarted={setIsStarted} />}
+      {isStarted && (
+        <ModalStartEdit
+          setIsStarted={setIsStarted}
+          SetIsRoscoJson={SetIsRoscoJson}
+          key={'StartModal'}
+        />
+      )}
       <header className="flex items-center justify-center">
         <h2 className="text-3xl font-bold pt-5 ">Editando :D</h2>
       </header>
@@ -54,6 +73,17 @@ function RouteComponent() {
           SetIsRoscoJson={SetIsRoscoJson}
         />
       )}
+      <div className='flex justify-center'>
+        <button
+          type="button"
+          className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 cursor-pointer"
+          onClick={() => {
+            handleDownloadRosco(IsRoscoJson)
+          }}
+        >
+          Guardar
+        </button>
+      </div>
     </>
   )
 }
@@ -127,12 +157,6 @@ function RoscoEditando({
             })}
         </div>
       </div>
-      <button
-        type="button"
-        className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 cursor-pointer"
-      >
-        Guardar
-      </button>
     </>
   )
 }
