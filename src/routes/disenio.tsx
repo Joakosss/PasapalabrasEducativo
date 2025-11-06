@@ -41,7 +41,7 @@ function RouteComponent() {
   }
 
   return (
-    <>
+    <div className='h-screen'>
       {isStarted && (
         <ModalStartEdit
           setIsStarted={setIsStarted}
@@ -84,7 +84,7 @@ function RouteComponent() {
           Guardar
         </button>
       </div>
-    </>
+    </div>
   )
 }
 

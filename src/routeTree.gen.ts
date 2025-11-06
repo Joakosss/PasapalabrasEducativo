@@ -9,9 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as GameRouteImport } from './routes/game'
 import { Route as DisenioRouteImport } from './routes/disenio'
 import { Route as IndexRouteImport } from './routes/index'
 
+const GameRoute = GameRouteImport.update({
+  id: '/game',
+  path: '/game',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DisenioRoute = DisenioRouteImport.update({
   id: '/disenio',
   path: '/disenio',
@@ -26,31 +32,42 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/disenio': typeof DisenioRoute
+  '/game': typeof GameRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/disenio': typeof DisenioRoute
+  '/game': typeof GameRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/disenio': typeof DisenioRoute
+  '/game': typeof GameRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/disenio'
+  fullPaths: '/' | '/disenio' | '/game'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/disenio'
-  id: '__root__' | '/' | '/disenio'
+  to: '/' | '/disenio' | '/game'
+  id: '__root__' | '/' | '/disenio' | '/game'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DisenioRoute: typeof DisenioRoute
+  GameRoute: typeof GameRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/game': {
+      id: '/game'
+      path: '/game'
+      fullPath: '/game'
+      preLoaderRoute: typeof GameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/disenio': {
       id: '/disenio'
       path: '/disenio'
@@ -71,6 +88,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DisenioRoute: DisenioRoute,
+  GameRoute: GameRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
