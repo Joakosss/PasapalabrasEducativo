@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
 import Ejemplo from '../Ejemplo.json'
 import Modal from '@/components/Modal'
+import ModalStartEdit from '@/components/ModalStartEdit'
 
 export const Route = createFileRoute('/disenio')({
   component: RouteComponent,
@@ -11,7 +12,8 @@ function RouteComponent() {
   const [IsRoscoJson, SetIsRoscoJson] = useState<EditLetra[]>(Ejemplo)
   const [isOpen, setIsOpen] = useState<boolean>(false) // Para abrir y cerrar el modal
   const [isSelected, setIsSelected] = useState<string>('A') // Para abrir y cerrar el modal
-  
+  const [isStarted, setIsStarted] = useState<boolean>(true) // Para abrir y cerrar el modal de inicio
+
   const NUM_LETRAS = Ejemplo.length
   const ANGULO_POR_LETRA = 360 / NUM_LETRAS
   // --- LÓGICA DE LAYOUT ---
@@ -27,9 +29,54 @@ function RouteComponent() {
 
   return (
     <>
+      {isStarted && <ModalStartEdit setIsStarted={setIsStarted} />}
       <header className="flex items-center justify-center">
         <h2 className="text-3xl font-bold pt-5 ">Editando :D</h2>
       </header>
+
+      {/* Rosco completo en el componente */}
+      <RoscoEditando
+        ANGULO_POR_LETRA={ANGULO_POR_LETRA}
+        IsRoscoJson={IsRoscoJson}
+        radio={radio}
+        roscoRef={roscoRef}
+        setIsOpen={setIsOpen}
+        setIsSelected={setIsSelected}
+        key={'RoscoEditando'}
+      />
+
+      {/* Aqui tengo el modal mi amorrr C: */}
+      {isOpen && (
+        <Modal
+          letra={isSelected}
+          setModal={setIsOpen}
+          JsonRosco={IsRoscoJson}
+          SetIsRoscoJson={SetIsRoscoJson}
+        />
+      )}
+    </>
+  )
+}
+
+type PropsRosco = {
+  roscoRef: React.RefObject<HTMLDivElement | null>
+  radio: number
+  IsRoscoJson: EditLetra[]
+  ANGULO_POR_LETRA: number
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setIsSelected: React.Dispatch<React.SetStateAction<string>>
+}
+
+function RoscoEditando({
+  roscoRef,
+  radio,
+  IsRoscoJson,
+  ANGULO_POR_LETRA,
+  setIsOpen,
+  setIsSelected,
+}: PropsRosco) {
+  return (
+    <>
       <div className="flex items-center justify-center h-150">
         <div
           ref={roscoRef}
@@ -62,19 +109,15 @@ function RouteComponent() {
 
               return (
                 <>
-                  <div
-                    key={letra.descripcion}
-                    style={estiloPosicion}
-                    onClick={() => {
-                      setIsOpen(true)
-                      setIsSelected(letra.letra)
-                    }}
-                    // Este div invisible gira y posiciona la letra
-                  >
+                  <div key={letra.descripcion} style={estiloPosicion}>
                     {/* Este div visible contiene la letra y la mantiene derecha */}
                     <div
                       style={estiloLetra}
                       className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-white hover:cursor-pointer ${letra.descripcion ? 'bg-green-700 hover:bg-green-900' : 'bg-gray-500 hover:bg-gray-700'}`}
+                      onClick={() => {
+                        setIsOpen(true)
+                        setIsSelected(letra.letra)
+                      }}
                     >
                       {letra.letra}
                     </div>
@@ -84,8 +127,12 @@ function RouteComponent() {
             })}
         </div>
       </div>
-      {/* Aqui tengo el modal mi amorrr C: */}
-      {isOpen && <Modal letra={isSelected} setModal={setIsOpen} JsonRosco={IsRoscoJson}/>}
+      <button
+        type="button"
+        className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 cursor-pointer"
+      >
+        Guardar
+      </button>
     </>
   )
 }

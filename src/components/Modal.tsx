@@ -1,119 +1,152 @@
+import { useState } from 'react'
+
+
 type Props = {
   letra: string
   JsonRosco: EditLetra[]
   setModal: React.Dispatch<React.SetStateAction<boolean>>
+  SetIsRoscoJson: React.Dispatch<React.SetStateAction<EditLetra[]>>
 }
 
-function Modal({ letra, setModal }: Props) {
+function Modal({ letra, JsonRosco, setModal, SetIsRoscoJson }: Props) {
+  const thisLetter = JsonRosco.find((item) => item.letra === letra)
+  const [formData, setFormData] = useState<EditLetra>({
+    letra: letra,
+    tipo: thisLetter?.tipo,
+    descripcion: thisLetter?.descripcion,
+  })
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    })
+  }
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (formData.descripcion === undefined || formData.tipo === undefined){
+      alert ("Faltan Cosas >:L")
+      return
+    }
+
+    const index = JsonRosco.findIndex((item) => item.letra === letra)
+    if (index !== -1) {
+      //-1 es pq si no encuentra el index devuelve -1 y no hace nada
+      const newJsonRosco = JsonRosco.map((item, i) => {
+        if (i !== index) {
+          return item
+        }
+        return {
+          ...item, // <-- Mantiene propiedades viejas (ej: 'id', 'respuesta', etc.)
+          ...formData, // <-- Sobrescribe con las propiedades nuevas (ej: 'pregunta')
+        }
+      })
+      SetIsRoscoJson(newJsonRosco)
+      setModal(false)
+    }
+  }
+
   return (
     <div
       id="EditModal"
       className="absolute flex items-center justify-center bg-gray-400/50 inset-0 z-1"
     >
-      <div className="relative p-4 w-full max-w-md max-h-full">
-        {/* <!-- Modal content --> */}
-        <div className="relative bg-white rounded-lg shadow-sm ">
-          {/* <!-- Modal header --> */}
-          <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t  border-gray-200">
-            <h3 className="text-xl font-semibold text-gray-900 ">
-              Letra {letra}
-            </h3>
-            <button
-              type="button"
-              className="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center cursor-pointer "
-              onClick={() => setModal(false)}
-            >
-              <svg
-                className="w-3 h-3"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 14 14"
+      <form className="space-y-4" onSubmit={handleSubmit}>
+        <div className="relative p-4 w-full max-w-md max-h-full">
+          {/* <!-- Modal content --> */}
+          <div className="relative bg-white rounded-lg shadow-sm ">
+            {/* <!-- Modal header --> */}
+            <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t  border-gray-200">
+              <h3 className="text-xl font-semibold text-gray-900 ">
+                Letra {letra}
+              </h3>
+              <button
+                type="button"
+                className="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center cursor-pointer "
+                onClick={() => setModal(false)}
               >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                />
-              </svg>
-              <span className="sr-only">Close modal</span>
-            </button>
-          </div>
-          {/* <!-- Modal body --> */}
-          <div className="p-4 md:p-5">
-            <form className="space-y-4" action="#">
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 "
+                <svg
+                  className="w-3 h-3"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 14 14"
                 >
-                  Your email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5    "
-                  placeholder="name@company.com"
-                  required
-                />
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                  />
+                </svg>
+                <span className="sr-only">Close modal</span>
+              </button>
+            </div>
+            {/* <!-- Modal body --> */}
+            <div className="p-4 md:p-5">
+              <label className="block mb-2 text-sm font-medium text-gray-900 ">
+                ¿La palabra ... con la letra {letra}?
+              </label>
+              <div className="flex gap-10">
+                <div className="flex items-center">
+                  <input
+                    id="tipo-1"
+                    type="radio"
+                    value="Contiene"
+                    name="tipo"
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
+                    checked={formData.tipo === "Contiene"}
+                    onChange={handleChange}
+                  />
+                  <label className="ms-2 text-sm font-medium text-gray-900 ">
+                    Contiene
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    id="tipo-2"
+                    type="radio"
+                    value="Parte"
+                    name="tipo"
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
+                    checked={formData.tipo === "Parte"}
+                    onChange={handleChange}
+                  />
+                  <label className="ms-2 text-sm font-medium text-gray-900 ">
+                    Parte
+                  </label>
+                </div>
               </div>
               <div>
                 <label
                   htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-900 "
                 >
-                  Your password
+                  Describe la palabra
                 </label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5    "
-                  required
+                <textarea
+                  id="Descripcion"
+                  name="descripcion"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5"
+                  onChange={handleChange}
+                  value={formData.descripcion}
                 />
               </div>
-              <div className="flex justify-between">
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="remember"
-                      type="checkbox"
-                      value=""
-                      className="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300     "
-                      required
-                    />
-                  </div>
-                  <label
-                    htmlFor="remember"
-                    className="ms-2 text-sm font-medium text-gray-900 "
-                  >
-                    Remember me
-                  </label>
-                </div>
-                <a href="#" className="text-sm text-blue-700 hover:underline ">
-                  Lost Password?
-                </a>
-              </div>
+
               <button
                 type="submit"
                 className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center   "
               >
-                Login to your account
+                Guardar
               </button>
-              <div className="text-sm font-medium text-gray-500 ">
-                Not registered?{' '}
-                <a href="#" className="text-blue-700 hover:underline ">
-                  Create account
-                </a>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   )
 }
