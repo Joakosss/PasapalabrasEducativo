@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
 import VacioJson from '../Vacio.json'
 import ModalStartGame from '@/components/ModalStartGame'
+import { FireworksBackground } from '@/components/ui/shadcn-io/fireworks-background'
 
 export const Route = createFileRoute('/game')({
   component: RouteComponent,
@@ -11,6 +12,7 @@ function RouteComponent() {
   const [IsRoscoJson, SetIsRoscoJson] = useState<GameLetra[]>(VacioJson)
   const [isOpen, setIsOpen] = useState<boolean>(true) // Usar este para el modal de subir tu juego
   const [isContador, setIsContador] = useState<number>(0)
+  const [isContWinner, setIsContWinner] = useState<number>(0)
 
   const NUM_LETRAS = VacioJson.length
   const ANGULO_POR_LETRA = 360 / NUM_LETRAS
@@ -26,7 +28,7 @@ function RouteComponent() {
   }, [])
 
   const handleNext = () => {
-    if (isContador === NUM_LETRAS-1) {
+    if (isContador === NUM_LETRAS - 1) {
       setIsContador(-1)
     }
 
@@ -36,9 +38,10 @@ function RouteComponent() {
       ),
     )
     setIsContador((prev) => prev + 1)
+    setIsContWinner((prev) => prev + 1)
   }
   const handlePass = () => {
-    if (isContador === NUM_LETRAS-1) {
+    if (isContador === NUM_LETRAS - 1) {
       setIsContador(-1)
     }
 
@@ -52,6 +55,11 @@ function RouteComponent() {
 
   return (
     <>
+    { isContWinner === NUM_LETRAS &&
+      <div className="fixed inset-0 z-1 bg-slate-800/90">
+        <FireworksBackground />
+      </div>
+      }
       <section className="grid grid-cols-3 gap-5 pt-20 px-2">
         <div className="col-span-1">
           <h2 className="text-3xl font-bold text-center h-20">
@@ -59,7 +67,7 @@ function RouteComponent() {
               ? `${IsRoscoJson[isContador].tipo} la letra ${IsRoscoJson[isContador].letra}`
               : `${IsRoscoJson[isContador].tipo} con la letra ${IsRoscoJson[isContador].letra}`}
           </h2>
-          <p className="text-center border border-slate-500 min-h-80">
+          <p className="text-center border border-slate-500 min-h-80 text-xl font-medium py-2">
             {IsRoscoJson[isContador].descripcion}
           </p>
           <div className="flex mt-5">
