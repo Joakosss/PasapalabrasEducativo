@@ -11,6 +11,7 @@ export const Route = createFileRoute('/game')({
 function RouteComponent() {
   const [IsRoscoJson, SetIsRoscoJson] = useState<GameLetra[]>(VacioJson)
   const [isOpen, setIsOpen] = useState<boolean>(true) // Usar este para el modal de subir tu juego
+  const [isHover, setIsHover] = useState<boolean>(false)
   const [isContador, setIsContador] = useState<number>(0)
   const [isContWinner, setIsContWinner] = useState<number>(0)
 
@@ -28,23 +29,26 @@ function RouteComponent() {
   }, [])
 
   const handleNext = () => {
-    if (isContador === NUM_LETRAS - 1) {
-      setIsContador(-1)
-    }
+    if (IsRoscoJson[isContador].estado === 'pendiente' || IsRoscoJson[isContador].estado === undefined ) {
+      if (isContador === NUM_LETRAS - 1) {
+        setIsContador(-1)
+      }
 
-    SetIsRoscoJson((prev) =>
-      prev.map((item, index) =>
-        index === isContador ? { ...item, estado: 'correcto' } : item,
-      ),
-    )
-    setIsContador((prev) => prev + 1)
-    setIsContWinner((prev) => prev + 1)
+      SetIsRoscoJson((prev) =>
+        prev.map((item, index) =>
+          index === isContador ? { ...item, estado: 'correcto' } : item,
+        ),
+      )
+      setIsContWinner((prev) => prev + 1)
+      setIsContador((prev) => prev + 1)
+      return
+    }
+    setIsContador(prev=>prev+1)
   }
   const handlePass = () => {
     if (isContador === NUM_LETRAS - 1) {
       setIsContador(-1)
     }
-
     SetIsRoscoJson((prev) =>
       prev.map((item, index) =>
         index === isContador ? { ...item, estado: 'pendiente' } : item,
@@ -55,11 +59,11 @@ function RouteComponent() {
 
   return (
     <>
-    { isContWinner === NUM_LETRAS &&
-      <div className="fixed inset-0 z-1 bg-slate-800/90">
-        <FireworksBackground />
-      </div>
-      }
+      {isContWinner === NUM_LETRAS && (
+        <div className="fixed inset-0 z-1 bg-slate-800/90">
+          <FireworksBackground />
+        </div>
+      )}
       <section className="grid grid-cols-3 gap-5 pt-20 px-2">
         <div className="col-span-1">
           <h2 className="text-3xl font-bold text-center h-20">
@@ -74,9 +78,15 @@ function RouteComponent() {
             <button
               type="button"
               className="text-white bg-blue-700 hover:bg-green-500 font-medium rounded-lg text-xl px-5 py-2.5 w-full me-2 mb-2 cursor-pointer"
-              onClick={() => handleNext()}
+              onMouseEnter={() => setIsHover(true)}
+              onMouseLeave={() => setIsHover(false)}
+              onClick={() =>
+                setTimeout(() => {
+                  handleNext()
+                }, 500)
+              }
             >
-              Siguiente
+              {isHover ? IsRoscoJson[isContador].correcto : 'Siguiente'}
             </button>
             <button
               type="button"

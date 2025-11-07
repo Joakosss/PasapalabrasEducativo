@@ -1,5 +1,5 @@
 import { useState } from 'react'
-
+import { IoClose } from 'react-icons/io5'
 
 type Props = {
   letra: string
@@ -14,6 +14,7 @@ function Modal({ letra, JsonRosco, setModal, SetIsRoscoJson }: Props) {
     letra: letra,
     tipo: thisLetter?.tipo,
     descripcion: thisLetter?.descripcion,
+    correcto: thisLetter?.correcto,
   })
 
   const handleChange = (
@@ -27,8 +28,8 @@ function Modal({ letra, JsonRosco, setModal, SetIsRoscoJson }: Props) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (formData.descripcion === undefined || formData.tipo === undefined){
-      alert ("Faltan Cosas >:L")
+    if (formData.descripcion === undefined || formData.tipo === undefined || formData.correcto === undefined) {
+      alert('Faltan Cosas >:L')
       return
     }
 
@@ -68,26 +69,26 @@ function Modal({ letra, JsonRosco, setModal, SetIsRoscoJson }: Props) {
                 className="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center cursor-pointer "
                 onClick={() => setModal(false)}
               >
-                <svg
-                  className="w-3 h-3"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 14 14"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                  />
-                </svg>
+                <IoClose />
                 <span className="sr-only">Close modal</span>
               </button>
             </div>
             {/* <!-- Modal body --> */}
             <div className="p-4 md:p-5">
+              <label className="block mb-2 text-sm font-medium text-gray-900 ">
+                Palabra correcta
+              </label>
+              <div className="flex items-center">
+                <input
+                  id="PalabraCorrecta"
+                  value={formData.correcto}
+                  name="correcta"
+                  className="  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5"
+                  checked={formData.tipo === 'Contiene'}
+                  onChange={handleChange}
+                />
+
+              </div>
               <label className="block mb-2 text-sm font-medium text-gray-900 ">
                 ¿La palabra ... con la letra {letra}?
               </label>
@@ -99,7 +100,7 @@ function Modal({ letra, JsonRosco, setModal, SetIsRoscoJson }: Props) {
                     value="Contiene"
                     name="tipo"
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
-                    checked={formData.tipo === "Contiene"}
+                    checked={formData.tipo === 'Contiene'}
                     onChange={handleChange}
                   />
                   <label className="ms-2 text-sm font-medium text-gray-900 ">
@@ -113,7 +114,7 @@ function Modal({ letra, JsonRosco, setModal, SetIsRoscoJson }: Props) {
                     value="Parte"
                     name="tipo"
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
-                    checked={formData.tipo === "Parte"}
+                    checked={formData.tipo === 'Parte'}
                     onChange={handleChange}
                   />
                   <label className="ms-2 text-sm font-medium text-gray-900 ">

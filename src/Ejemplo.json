@@ -1,128 +1,152 @@
 [
   {
     "letra": "A",
-    "tipo": "Empieza",
+    "tipo": "Contiene",
     "descripcion": "Capital de Grecia.",
-    "palabra":"Atenas"
+    "correcto": "Atenas"
   },
   {
     "letra": "B",
-    "tipo": "Empieza",
-    "descripcion": "Animal grande y peludo que hiberna en invierno."
+    "tipo": "Parte",
+    "descripcion": "Animal grande y peludo que hiberna en invierno.",
+    "correcto": "Oso"
   },
   {
     "letra": "C",
-    "tipo": "Empieza",
-    "descripcion": "Aparato que se usa para hacer llamadas telefónicas."
+    "tipo": "Parte",
+    "descripcion": "Aparato que se usa para hacer llamadas telefónicas.",
+    "correcto": "Teléfono"
   },
   {
     "letra": "D",
-    "tipo": "Empieza",
-    "descripcion": "Día en que se celebra el nacimiento de una persona."
+    "tipo": "Parte",
+    "descripcion": "Día en que se celebra el nacimiento de una persona.",
+    "correcto": "Cumpleaños"
   },
   {
     "letra": "E",
-    "tipo": "Empieza",
-    "descripcion": "Animal con trompa muy grande."
+    "tipo": "Contiene",
+    "descripcion": "Animal con trompa muy grande.",
+    "correcto": "Elefante"
   },
   {
     "letra": "F",
-    "tipo": "Empieza",
-    "descripcion": "Lugar donde se cultivan plantas o hortalizas."
+    "tipo": "Parte",
+    "descripcion": "Lugar donde se cultivan plantas o hortalizas.",
+    "correcto": "Huerto"
   },
   {
     "letra": "G",
-    "tipo": "Empieza",
-    "descripcion": "Animal que da leche y hace 'muu'."
+    "tipo": "Parte",
+    "descripcion": "Animal que da leche y hace 'muu'.",
+    "correcto": "Vaca"
   },
   {
     "letra": "H",
-    "tipo": "Empieza",
-    "descripcion": "Lugar donde viven las personas, su vivienda."
+    "tipo": "Parte",
+    "descripcion": "Lugar donde viven las personas, su vivienda.",
+    "correcto": "Casa"
   },
   {
     "letra": "I",
-    "tipo": "Empieza",
-    "descripcion": "Continente donde se encuentra Italia."
+    "tipo": "Contiene",
+    "descripcion": "Continente donde se encuentra Italia.",
+    "correcto": "Europa"
   },
   {
     "letra": "J",
-    "tipo": "Empieza",
-    "descripcion": "Objeto que se lanza y regresa a quien lo arrojó."
+    "tipo": "Parte",
+    "descripcion": "Objeto que se lanza y regresa a quien lo arrojó.",
+    "correcto": "Bumerán"
   },
   {
     "letra": "K",
     "tipo": "Contiene",
-    "descripcion": "Deporte que se practica sobre hielo con un disco y palos."
+    "descripcion": "Deporte que se practica sobre hielo con un disco y palos.",
+    "correcto": "Hockey"
   },
   {
     "letra": "L",
-    "tipo": "Empieza",
-    "descripcion": "Astro que ilumina la noche."
+    "tipo": "Contiene",
+    "descripcion": "Astro que ilumina la noche.",
+    "correcto": "Luna"
   },
   {
     "letra": "M",
-    "tipo": "Empieza",
-    "descripcion": "Insecto que produce miel."
+    "tipo": "Parte",
+    "descripcion": "Insecto que produce miel.",
+    "correcto": "Abeja"
   },
   {
     "letra": "N",
-    "tipo": "Empieza",
-    "descripcion": "Estación del año que sigue al otoño."
+    "tipo": "Contiene",
+    "descripcion": "Estación del año que sigue al otoño.",
+    "correcto": "Invierno"
   },
   {
     "letra": "O",
-    "tipo": "Empieza",
-    "descripcion": "Animal marino con ocho brazos."
+    "tipo": "Contiene",
+    "descripcion": "Animal marino con ocho brazos.",
+    "correcto": "Pulpo"
   },
   {
     "letra": "P",
-    "tipo": "Empieza",
-    "descripcion": "Fruta de color amarillo por fuera y blanca por dentro, con forma alargada."
+    "tipo": "Parte",
+    "descripcion": "Fruta de color amarillo por fuera y blanca por dentro, con forma alargada.",
+    "correcto": "Banana"
   },
   {
     "letra": "Q",
-    "tipo": "Empieza",
-    "descripcion": "Aparato que sirve para calentar agua rápidamente."
+    "tipo": "Contiene",
+    "descripcion": "Aparato que sirve para calentar agua rápidamente.",
+    "correcto": "Hervidor"
   },
   {
     "letra": "R",
-    "tipo": "Empieza",
-    "descripcion": "Animal que salta y tiene una bolsa para sus crías."
+    "tipo": "Parte",
+    "descripcion": "Animal que salta y tiene una bolsa para sus crías.",
+    "correcto": "Canguro"
   },
   {
     "letra": "S",
-    "tipo": "Empieza",
-    "descripcion": "Instrumento musical con cuerdas que se toca con arco."
+    "tipo": "Parte",
+    "descripcion": "Instrumento musical con cuerdas que se toca con arco.",
+    "correcto": "Violín"
   },
   {
     "letra": "T",
-    "tipo": "Empieza",
-    "descripcion": "Animal que pone huevos y tiene un caparazón duro."
+    "tipo": "Parte",
+    "descripcion": "Animal que pone huevos y tiene un caparazón duro.",
+    "correcto": "Tortuga"
   },
   {
     "letra": "U",
-    "tipo": "Empieza",
-    "descripcion": "País de América del Sur famoso por su carne y su mate."
+    "tipo": "Contiene",
+    "descripcion": "País de América del Sur famoso por su carne y su mate.",
+    "correcto": "Uruguay"
   },
   {
     "letra": "V",
-    "tipo": "Empieza",
-    "descripcion": "Vehículo que se usa para viajar por el aire."
+    "tipo": "Parte",
+    "descripcion": "Vehículo que se usa para viajar por el aire.",
+    "correcto": "Avión"
   },
   {
     "letra": "X",
     "tipo": "Contiene",
-    "descripcion": "Instrumento musical con placas de metal o madera que se golpean con baquetas."
+    "descripcion": "Instrumento musical con placas de metal o madera que se golpean con baquetas.",
+    "correcto": "Xilófono"
   },
   {
     "letra": "Y",
-    "tipo": "Empieza",
-    "descripcion": "Lugar donde se fabrican objetos o se reparan cosas."
+    "tipo": "Contiene",
+    "descripcion": "Lugar donde se fabrican objetos o se reparan cosas.",
+    "correcto": "Taller"
   },
   {
     "letra": "Z",
-    "tipo": "Empieza",
-    "descripcion": "Lugar donde viven los animales para que la gente los visite."
+    "tipo": "Contiene",
+    "descripcion": "Lugar donde viven los animales para que la gente los visite.",
+    "correcto": "Zoológico"
   }
 ]
