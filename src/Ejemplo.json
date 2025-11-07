@@ -1,39 +1,128 @@
 [
   {
     "letra": "A",
-    "tipo": "Contiene",
-    "descripcion": "Ejemplo"
+    "tipo": "Empieza",
+    "descripcion": "Capital de Grecia.",
+    "palabra":"Atenas"
   },
   {
     "letra": "B",
-    "tipo": "Contiene",
-    "descripcion": "Ejemplo"
+    "tipo": "Empieza",
+    "descripcion": "Animal grande y peludo que hiberna en invierno."
   },
   {
     "letra": "C",
-    "tipo": "Contiene",
-    "descripcion": "Ejemplo"
+    "tipo": "Empieza",
+    "descripcion": "Aparato que se usa para hacer llamadas telefónicas."
   },
-  { "letra": "D" },
-  { "letra": "E" },
-  { "letra": "F" },
-  { "letra": "G" },
-  { "letra": "H" },
-  { "letra": "I" },
-  { "letra": "J" },
-  { "letra": "K" },
-  { "letra": "L" },
-  { "letra": "M" },
-  { "letra": "N" },
-  { "letra": "O" },
-  { "letra": "P" },
-  { "letra": "Q" },
-  { "letra": "R" },
-  { "letra": "S" },
-  { "letra": "T" },
-  { "letra": "U" },
-  { "letra": "V" },
-  { "letra": "X", "tipo": "Contiene", "descripcion": "Ejemplo" },
-  { "letra": "Y" },
-  { "letra": "Z" }
+  {
+    "letra": "D",
+    "tipo": "Empieza",
+    "descripcion": "Día en que se celebra el nacimiento de una persona."
+  },
+  {
+    "letra": "E",
+    "tipo": "Empieza",
+    "descripcion": "Animal con trompa muy grande."
+  },
+  {
+    "letra": "F",
+    "tipo": "Empieza",
+    "descripcion": "Lugar donde se cultivan plantas o hortalizas."
+  },
+  {
+    "letra": "G",
+    "tipo": "Empieza",
+    "descripcion": "Animal que da leche y hace 'muu'."
+  },
+  {
+    "letra": "H",
+    "tipo": "Empieza",
+    "descripcion": "Lugar donde viven las personas, su vivienda."
+  },
+  {
+    "letra": "I",
+    "tipo": "Empieza",
+    "descripcion": "Continente donde se encuentra Italia."
+  },
+  {
+    "letra": "J",
+    "tipo": "Empieza",
+    "descripcion": "Objeto que se lanza y regresa a quien lo arrojó."
+  },
+  {
+    "letra": "K",
+    "tipo": "Contiene",
+    "descripcion": "Deporte que se practica sobre hielo con un disco y palos."
+  },
+  {
+    "letra": "L",
+    "tipo": "Empieza",
+    "descripcion": "Astro que ilumina la noche."
+  },
+  {
+    "letra": "M",
+    "tipo": "Empieza",
+    "descripcion": "Insecto que produce miel."
+  },
+  {
+    "letra": "N",
+    "tipo": "Empieza",
+    "descripcion": "Estación del año que sigue al otoño."
+  },
+  {
+    "letra": "O",
+    "tipo": "Empieza",
+    "descripcion": "Animal marino con ocho brazos."
+  },
+  {
+    "letra": "P",
+    "tipo": "Empieza",
+    "descripcion": "Fruta de color amarillo por fuera y blanca por dentro, con forma alargada."
+  },
+  {
+    "letra": "Q",
+    "tipo": "Empieza",
+    "descripcion": "Aparato que sirve para calentar agua rápidamente."
+  },
+  {
+    "letra": "R",
+    "tipo": "Empieza",
+    "descripcion": "Animal que salta y tiene una bolsa para sus crías."
+  },
+  {
+    "letra": "S",
+    "tipo": "Empieza",
+    "descripcion": "Instrumento musical con cuerdas que se toca con arco."
+  },
+  {
+    "letra": "T",
+    "tipo": "Empieza",
+    "descripcion": "Animal que pone huevos y tiene un caparazón duro."
+  },
+  {
+    "letra": "U",
+    "tipo": "Empieza",
+    "descripcion": "País de América del Sur famoso por su carne y su mate."
+  },
+  {
+    "letra": "V",
+    "tipo": "Empieza",
+    "descripcion": "Vehículo que se usa para viajar por el aire."
+  },
+  {
+    "letra": "X",
+    "tipo": "Contiene",
+    "descripcion": "Instrumento musical con placas de metal o madera que se golpean con baquetas."
+  },
+  {
+    "letra": "Y",
+    "tipo": "Empieza",
+    "descripcion": "Lugar donde se fabrican objetos o se reparan cosas."
+  },
+  {
+    "letra": "Z",
+    "tipo": "Empieza",
+    "descripcion": "Lugar donde viven los animales para que la gente los visite."
+  }
 ]
