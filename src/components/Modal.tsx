@@ -29,6 +29,7 @@ function Modal({ letra, JsonRosco, setModal, SetIsRoscoJson }: Props) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (formData.descripcion === undefined || formData.tipo === undefined || formData.correcto === undefined) {
+      console.log(formData)
       alert('Faltan Cosas >:L')
       return
     }
@@ -82,9 +83,8 @@ function Modal({ letra, JsonRosco, setModal, SetIsRoscoJson }: Props) {
                 <input
                   id="PalabraCorrecta"
                   value={formData.correcto}
-                  name="correcta"
+                  name="correcto"
                   className="  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5"
-                  checked={formData.tipo === 'Contiene'}
                   onChange={handleChange}
                 />
 

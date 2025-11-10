@@ -7,6 +7,8 @@ import { routeTree } from './routeTree.gen'
 
 import './styles.css'
 import reportWebVitals from './reportWebVitals.ts'
+// @ts-ignore
+import { registerSW } from 'virtual:pwa-register'
 
 // Create a new router instance
 const router = createRouter({
@@ -40,3 +42,12 @@ if (rootElement && !rootElement.innerHTML) {
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals()
+
+registerSW({
+  onNeedRefresh() {
+    console.log('Hay una nueva versión disponible.')
+  },
+  onOfflineReady() {
+    console.log('La app está lista para usarse sin conexión.')
+  },
+})
