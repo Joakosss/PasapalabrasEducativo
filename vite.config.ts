@@ -18,14 +18,14 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
-        name: 'Mi App React',
-        short_name: 'MiApp',
-        description: 'Mi aplicación React convertida en PWA para escritorio',
+        name: 'Pasapalabras Educativo',
+        short_name: 'PasaPalabras',
+        description: 'Aplicación creada con fines educativos',
         theme_color: '#0ea5e9', // Azul tailwind-500
         background_color: '#ffffff',
         display: 'standalone',
         start_url: '/',
-        display_override: ['window-controls-overlay'], // integración estilo escritorio
+        //display_override: ['window-controls-overlay'], // integración estilo escritorio
         icons: [
           {
             src: 'logo192.png',
