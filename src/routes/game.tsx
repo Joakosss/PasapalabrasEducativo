@@ -13,10 +13,9 @@ function RouteComponent() {
   const [isOpen, setIsOpen] = useState<boolean>(true) // Usar este para el modal de subir tu juego
   const [isHover, setIsHover] = useState<boolean>(false)
   const [isContador, setIsContador] = useState<number>(0)
-  const [isContWinner, setIsContWinner] = useState<number>(0)
+  const [isContWinner, setIsContWinner] = useState<boolean>(false)
 
-  const NUM_LETRAS = VacioJson.length
-  const ANGULO_POR_LETRA = 360 / NUM_LETRAS
+  let ANGULO_POR_LETRA = 360 / IsRoscoJson.length
   // --- LÓGICA DE LAYOUT ---
   const [radio, setRadio] = useState(0)
   const roscoRef = useRef<HTMLDivElement | null>(null)
@@ -29,37 +28,58 @@ function RouteComponent() {
   }, [])
 
   const handleNext = () => {
-    if (IsRoscoJson[isContador].estado === 'pendiente' || IsRoscoJson[isContador].estado === undefined ) {
-      if (isContador === NUM_LETRAS - 1) {
-        setIsContador(-1)
+    // Paso 2: Actualizamos el rosco con la letra ahora correcta
+    SetIsRoscoJson((prevRosco) => {
+      const roscoActualizado = prevRosco.map((item, index) =>
+        index === isContador ? { ...item, estado: 'correcto' } : item,
+      )
+
+      // Paso 3: Buscamos la próxima letra pendiente
+      let proximoIndice = (isContador + 1) % roscoActualizado.length // Empezamos en el siguiente
+      for (let i = 0; i < roscoActualizado.length; i++) {
+        const item = roscoActualizado[proximoIndice]
+        if (item.estado !== 'correcto') {
+          break
+        }
+        proximoIndice = (proximoIndice + 1) % roscoActualizado.length
       }
 
-      SetIsRoscoJson((prev) =>
-        prev.map((item, index) =>
-          index === isContador ? { ...item, estado: 'correcto' } : item,
-        ),
+      // Paso 4: Verificamos si el juego ha terminado
+      const todosCorrectos = roscoActualizado.every(
+        (item) => item.estado === 'correcto',
       )
-      setIsContWinner((prev) => prev + 1)
-      setIsContador((prev) => prev + 1)
-      return
-    }
-    setIsContador(prev=>prev+1)
+      if (todosCorrectos) {
+        setIsContWinner(true)
+        setIsContador(0) // Vuelve a A para que no pase a una letra inexistente
+      } else {
+        setIsContador(proximoIndice) // si no estan todos correctos ve el proximo indice pendiente y va ahi
+      }
+      //Paso 5: Teminamos
+      return roscoActualizado
+    })
   }
+
   const handlePass = () => {
-    if (isContador === NUM_LETRAS - 1) {
-      setIsContador(-1)
+    let proximoIndice = (isContador + 1) % IsRoscoJson.length // Empezamos en el siguiente
+    for (let i = 0; i < IsRoscoJson.length; i++) {
+      const item = IsRoscoJson[proximoIndice]
+      if (item.estado !== 'correcto') {
+        break
+      }
+      proximoIndice = (proximoIndice + 1) % IsRoscoJson.length
     }
+
     SetIsRoscoJson((prev) =>
       prev.map((item, index) =>
         index === isContador ? { ...item, estado: 'pendiente' } : item,
       ),
     )
-    setIsContador((prev) => prev + 1)
+    setIsContador(proximoIndice)
   }
 
   return (
     <>
-      {isContWinner === NUM_LETRAS && (
+      {isContWinner && (
         <div className="fixed inset-0 z-1 bg-slate-800/90">
           <FireworksBackground />
         </div>
@@ -103,7 +123,6 @@ function RouteComponent() {
             IsRoscoJson={IsRoscoJson}
             radio={radio}
             roscoRef={roscoRef}
-            setIsOpen={setIsOpen}
             key={'RoscoEditando'}
           />
         </div>
@@ -120,7 +139,6 @@ type PropsRosco = {
   radio: number
   IsRoscoJson: GameLetra[]
   ANGULO_POR_LETRA: number
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 function RoscoPlaying({
@@ -128,7 +146,6 @@ function RoscoPlaying({
   radio,
   IsRoscoJson,
   ANGULO_POR_LETRA,
-  setIsOpen,
 }: PropsRosco) {
   return (
     <>
@@ -163,20 +180,15 @@ function RoscoPlaying({
               }
 
               return (
-                <>
-                  <div key={letra.descripcion} style={estiloPosicion}>
-                    {/* Este div visible contiene la letra y la mantiene derecha */}
-                    <div
-                      style={estiloLetra}
-                      className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-white hover:cursor-pointer bg-blue-700 hover:bg-blue-800 ${letra.estado === 'correcto' && 'bg-green-700 hover:bg-green-800'} ${letra.estado === 'pendiente' && 'bg-yellow-300 hover:bg-yellow-400'}`}
-                      onClick={() => {
-                        setIsOpen(true)
-                      }}
-                    >
-                      {letra.letra}
-                    </div>
+                <div key={letra.descripcion} style={estiloPosicion}>
+                  {/* Este div visible contiene la letra y la mantiene derecha */}
+                  <div
+                    style={estiloLetra}
+                    className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-white bg-blue-700  ${letra.estado === 'correcto' && 'bg-green-700 '} ${letra.estado === 'pendiente' && 'bg-yellow-300'}`}
+                  >
+                    {letra.letra}
                   </div>
-                </>
+                </div>
               )
             })}
         </div>
