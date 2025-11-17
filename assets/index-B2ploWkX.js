@@ -1,0 +1,1 @@
+import{j as e}from"./index-DL5QU3mO.js";function s(){return e.jsx("div",{className:"absolute flex flex-col items-center justify-center bg-slate-800 inset-0 z-1",children:"Hola"})}export{s as component};
