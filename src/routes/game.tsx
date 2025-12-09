@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
 import VacioJson from '../Vacio.json'
 import ModalStartGame from '@/components/ModalStartGame'
@@ -79,53 +79,86 @@ function RouteComponent() {
 
   return (
     <>
+      {/* Modal de Fireworks */}
       {isContWinner && (
-        <div className="fixed inset-0 z-1 bg-slate-800/90">
-          <FireworksBackground />
+        <div className="fixed inset-0 z-50 bg-blue-950/80">
+          <FireworksBackground
+            population={15}
+            fireworkSize={{ min: 2, max: 6 }}
+            className='absolute inset-0 z-0 pointer-events-none'
+          />
+          <div className="fixed top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 z-10">
+            <Link
+              to="/disenio"
+              className="
+                flex items-center gap-2 justify-center text-center
+                text-white bg-blue-500 text-4xl font-bold w-100 h-24 rounded-lg
+                hover:bg-blue-400 hover:text-blue-800 cursor-pointer shadow-lg"
+            >
+              Terminar Juego
+            </Link>
+          </div>
+
         </div>
       )}
-      <section className="grid grid-cols-3 gap-5 pt-20 px-2">
-        <div className="col-span-1">
-          <h2 className="text-3xl font-bold text-center h-20">
+
+      {/* Seccion del juego */}
+      <section className="flex flex-col items-center justify-center h-screen gap-0 md:gap-7">
+
+        {/* Rosco */}
+        <RoscoPlaying
+          ANGULO_POR_LETRA={ANGULO_POR_LETRA}
+          IsRoscoJson={IsRoscoJson}
+          radio={radio}
+          roscoRef={roscoRef}
+          key={'RoscoEditando'}
+        >
+
+          <h2 className="text-5xl font-extrabold text-center text-blue-900 z-1">
             {IsRoscoJson[isContador].tipo === 'Contiene'
               ? `${IsRoscoJson[isContador].tipo} la letra ${IsRoscoJson[isContador].letra}`
               : `${IsRoscoJson[isContador].tipo} con la letra ${IsRoscoJson[isContador].letra}`}
           </h2>
-          <p className="text-center border border-slate-500 min-h-80 text-xl font-medium py-2">
-            {IsRoscoJson[isContador].descripcion}
-          </p>
-          <div className="flex mt-5">
+
+          {/* Descripcion de la letra */}
+          <p className='text-2xl lg:text-4xl font-bold text-center text-blue-900 w-[70%]'>{IsRoscoJson[isContador].descripcion}</p>
+
+          {/* Botones */}
+          <div className="flex flex-row justify-center items-center gap-3">
             <button
               type="button"
-              className="text-white bg-blue-700 hover:bg-green-500 font-medium rounded-lg text-xl px-5 py-2.5 w-full me-2 mb-2 cursor-pointer"
-              onMouseEnter={() => setIsHover(true)}
-              onMouseLeave={() => setIsHover(false)}
+              className="
+            flex items-center gap-2 justify-center text-center
+            text-white bg-blue-500 text-2xl font-bold w-40 h-16 rounded-lg
+            hover:bg-lime-600  cursor-pointer z-1"
               onClick={() =>
-                setTimeout(() => {
-                  handleNext()
-                }, 500)
+                handleNext()
               }
             >
-              {isHover ? IsRoscoJson[isContador].correcto : 'Siguiente'}
+              Siguiente
             </button>
             <button
               type="button"
-              className="text-white bg-blue-700 hover:bg-green-500 font-medium rounded-lg text-xl px-5 py-2.5 w-full me-2 mb-2 cursor-pointer"
+              className="
+            flex items-center gap-2 justify-center text-center
+            text-white bg-blue-500 text-2xl font-bold w-40 h-16 rounded-lg
+            hover:bg-blue-400 hover:text-blue-800 cursor-pointer z-1"
               onClick={() => handlePass()}
             >
               Pasar
             </button>
           </div>
-        </div>
-        <div className="col-span-2">
-          <RoscoPlaying
-            ANGULO_POR_LETRA={ANGULO_POR_LETRA}
-            IsRoscoJson={IsRoscoJson}
-            radio={radio}
-            roscoRef={roscoRef}
-            key={'RoscoEditando'}
-          />
-        </div>
+
+          {/* Letra correcta anterior */}
+          {IsRoscoJson[isContador - 1] && IsRoscoJson[isContador - 1].estado === 'correcto' &&
+            <div className="flex flex-col items-center justify-center text-2xl font-bold">
+              <p className='text-blue-900/70'>Letra con {IsRoscoJson[isContador - 1].letra}</p>
+              <p className='text-blue-900'>"{IsRoscoJson[isContador - 1].correcto}"</p>
+            </div>
+          }
+
+        </RoscoPlaying>
+
       </section>
       {isOpen && (
         <ModalStartGame SetIsRoscoJson={SetIsRoscoJson} setIsOpen={setIsOpen} />
@@ -139,6 +172,7 @@ type PropsRosco = {
   radio: number
   IsRoscoJson: GameLetra[]
   ANGULO_POR_LETRA: number
+  children: React.ReactNode
 }
 
 function RoscoPlaying({
@@ -146,14 +180,21 @@ function RoscoPlaying({
   radio,
   IsRoscoJson,
   ANGULO_POR_LETRA,
+  children,
 }: PropsRosco) {
   return (
     <>
-      <div className="flex items-center justify-center h-150">
+      <div className="flex items-center justify-center h-screen">
         <div
           ref={roscoRef}
-          className="relative w-[500px] h-[500px] rounded-full border-2 border-gray-400"
+          className="relative w-[400px] h-[400px] md:w-[600px] md:h-[600px] xl:w-[800px] xl:h-[800px]  rounded-full border-2 border-gray-400"
         >
+
+          <section className='flex flex-col items-center justify-center gap-7 h-[90%]'>
+            {children}
+          </section>
+
+
           {radio > 0 &&
             IsRoscoJson.map((letra, index) => {
               const angulo = ANGULO_POR_LETRA * index
@@ -184,7 +225,7 @@ function RoscoPlaying({
                   {/* Este div visible contiene la letra y la mantiene derecha */}
                   <div
                     style={estiloLetra}
-                    className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-white bg-blue-700  ${letra.estado === 'correcto' && 'bg-green-700 '} ${letra.estado === 'pendiente' && 'bg-yellow-300'}`}
+                    className={`w-11 h-11 md:w-14 md:h-14 xl:w-20 xl:h-20 text-lg md:text-xl lg:text-2xl xl:text-3xl rounded-full flex items-center justify-center font-bold text-white bg-blue-700  ${letra.estado === 'correcto' && 'bg-green-700 '} ${letra.estado === 'pendiente' && 'bg-yellow-300'}`}
                   >
                     {letra.letra}
                   </div>

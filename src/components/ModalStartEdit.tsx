@@ -30,36 +30,42 @@ function ModalStartEdit({ setIsStarted, SetIsRoscoJson }: Props) {
   return (
     <div
       id="EditModal"
-      className="absolute flex flex-col items-center justify-center bg-slate-800 inset-0 z-1"
+      className="absolute flex flex-col items-center justify-center inset-0 z-1 min-h-screen w-full bg-[url(./img/fondo1.webp)] bg-blue-100/100 bg-blend-overlay gap-5"
     >
-      <div className="grid grid-cols-2 gap-5">
-        <div>
-          {/* Input oculto */}
-          <input
-            type="file"
-            ref={fileInputRef}
-            className="hidden"
-            onChange={handleLoadGame}
-          />
+      <div>
+        {/* Input oculto */}
+        <input
+          type="file"
+          ref={fileInputRef}
+          className="hidden"
+          onChange={handleLoadGame}
+        />
 
-          {/* Botón visible con tu estilo */}
-          <button
-            type="button"
-            className="text-white bg-blue-700 hover:bg-green-500 font-medium rounded-lg text-3xl px-5 py-2.5 me-2 mb-2 cursor-pointer"
-            onClick={() => fileInputRef.current?.click()}
-          >
-            Editar rosco
-          </button>
-        </div>
-        <div>
-          <button
-            type="button"
-            className="text-white bg-blue-700 hover:bg-green-500 font-medium rounded-lg text-3xl px-5 py-2.5 me-2 mb-2 cursor-pointer"
-            onClick={handleNewGame}
-          >
-            Nuevo Juego
-          </button>
-        </div>
+        {/* Botón visible con tu estilo */}
+        <button
+          type="button"
+          className="
+            flex items-center gap-2 justify-center text-center
+            text-white bg-blue-500 text-5xl font-bold w-100 h-24 rounded-lg
+            hover:bg-blue-400 hover:text-blue-800
+            md:w-120"
+          onClick={() => fileInputRef.current?.click()}
+        >
+          Editar rosco
+        </button>
+      </div>
+      <div>
+        <button
+          type="button"
+          className="
+            flex items-center gap-2 justify-center text-center
+            text-white bg-blue-500 text-5xl font-bold w-100 h-24 rounded-lg
+            hover:bg-blue-400 hover:text-blue-800
+            md:w-120"
+          onClick={handleNewGame}
+        >
+          Nuevo Juego
+        </button>
       </div>
     </div>
   )

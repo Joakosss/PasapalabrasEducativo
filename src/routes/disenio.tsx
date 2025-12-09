@@ -49,9 +49,6 @@ function RouteComponent() {
           key={'StartModal'}
         />
       )}
-      <header className="flex items-center justify-center">
-        <h2 className="text-3xl font-bold pt-5 ">Editando :D</h2>
-      </header>
 
       {/* Rosco completo en el componente */}
       <RoscoEditando
@@ -62,7 +59,26 @@ function RouteComponent() {
         setIsOpen={setIsOpen}
         setIsSelected={setIsSelected}
         key={'RoscoEditando'}
-      />
+      >
+        {/* Titulo */}
+        <h2 className="text-5xl font-extrabold pt-5 text-center text-blue-800">Editando</h2>
+
+        {/* Boton de guardar */}
+        <div className='flex justify-center'>
+          <button
+            type="button"
+            className="
+            flex items-center gap-2 justify-center text-center
+            text-white bg-blue-500 text-2xl font-bold w-40 h-16 rounded-lg
+            hover:bg-blue-400 hover:text-blue-800"
+            onClick={() => {
+              handleDownloadRosco(IsRoscoJson)
+            }}
+          >
+            Guardar
+          </button>
+        </div>
+      </RoscoEditando>
 
       {/* Aqui tengo el modal mi amorrr C: */}
       {isOpen && (
@@ -73,17 +89,6 @@ function RouteComponent() {
           SetIsRoscoJson={SetIsRoscoJson}
         />
       )}
-      <div className='flex justify-center'>
-        <button
-          type="button"
-          className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 cursor-pointer"
-          onClick={() => {
-            handleDownloadRosco(IsRoscoJson)
-          }}
-        >
-          Guardar
-        </button>
-      </div>
     </div>
   )
 }
@@ -95,6 +100,7 @@ type PropsRosco = {
   ANGULO_POR_LETRA: number
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
   setIsSelected: React.Dispatch<React.SetStateAction<string>>
+  children: React.ReactNode
 }
 
 function RoscoEditando({
@@ -104,14 +110,18 @@ function RoscoEditando({
   ANGULO_POR_LETRA,
   setIsOpen,
   setIsSelected,
+  children
 }: PropsRosco) {
   return (
     <>
-      <div className="flex items-center justify-center h-150">
+      <div className="flex items-center justify-center h-screen">
         <div
           ref={roscoRef}
-          className="relative w-[500px] h-[500px] rounded-full border-2 border-gray-400"
+          className="relative w-[400px] h-[400px] md:w-[600px] md:h-[600px] xl:w-[800px] xl:h-[800px]  rounded-full border-2 border-gray-400"
         >
+          <section className='flex flex-col items-center justify-center gap-20 h-[80%]'>
+            {children}
+          </section>
           {radio > 0 &&
             IsRoscoJson.map((letra, index) => {
               const angulo = ANGULO_POR_LETRA * index
@@ -143,7 +153,7 @@ function RoscoEditando({
                     {/* Este div visible contiene la letra y la mantiene derecha */}
                     <div
                       style={estiloLetra}
-                      className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-white hover:cursor-pointer ${letra.descripcion ? 'bg-green-700 hover:bg-green-900' : 'bg-gray-500 hover:bg-gray-700'}`}
+                      className={`w-11 h-11 md:w-14 md:h-14 xl:w-20 xl:h-20 text-lg md:text-xl lg:text-2xl xl:text-3xl rounded-full flex items-center justify-center font-bold text-white hover:cursor-pointer ${letra.descripcion ? 'bg-green-700 hover:bg-green-900' : 'bg-gray-500 hover:bg-gray-700'}`}
                       onClick={() => {
                         setIsOpen(true)
                         setIsSelected(letra.letra)

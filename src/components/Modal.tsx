@@ -54,10 +54,10 @@ function Modal({ letra, JsonRosco, setModal, SetIsRoscoJson }: Props) {
   return (
     <div
       id="EditModal"
-      className="absolute flex items-center justify-center bg-gray-400/50 inset-0 z-1"
+      className="absolute flex items-center justify-center bg-gray-400/50 inset-0 z-1 w-full h-full"
     >
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <div className="relative p-4 w-full max-w-md max-h-full">
+      <form className="space-y-4 w-[40%]" onSubmit={handleSubmit}>
+        <div className="relative p-4">
           {/* <!-- Modal content --> */}
           <div className="relative bg-white rounded-lg shadow-sm ">
             {/* <!-- Modal header --> */}
@@ -75,7 +75,7 @@ function Modal({ letra, JsonRosco, setModal, SetIsRoscoJson }: Props) {
               </button>
             </div>
             {/* <!-- Modal body --> */}
-            <div className="p-4 md:p-5">
+            <div className="p-4 md:p-5 flex flex-col gap-5">
               <label className="block mb-2 text-sm font-medium text-gray-900 ">
                 Palabra correcta
               </label>
