@@ -7,5 +7,5 @@ export interface Letter {
 }
 
 export interface GameLetter extends Letter {
-  state?: "Correcto" | "Incorrecto" | "NoJugada"
+  state?: "Correcto" | "Pasado" | undefined
 }

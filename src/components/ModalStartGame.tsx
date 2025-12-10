@@ -1,12 +1,17 @@
+import type { GameLetter } from '@/Models/Letra'
 import { useRef } from 'react'
 
 type Props = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-  SetIsRoscoJson: React.Dispatch<React.SetStateAction<EditLetra[]>>
+  SetIsRoscoJson: React.Dispatch<React.SetStateAction<GameLetter[]>>
 }
 
 function ModalStartGame({ setIsOpen, SetIsRoscoJson }: Props) {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
+
+  const onlyRoscoPlayable = (rosco: GameLetter[]) => {
+    return rosco.filter((item) => !item.deleted)
+  }
 
   const handleLoadGame = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -14,8 +19,9 @@ function ModalStartGame({ setIsOpen, SetIsRoscoJson }: Props) {
     const reader = new FileReader()
     reader.onload = (event) => {
       try {
-        const json = JSON.parse(event.target?.result as string) as EditLetra[]
-        SetIsRoscoJson(json)
+        const json = JSON.parse(event.target?.result as string) as GameLetter[]
+        const roscoPlayable = onlyRoscoPlayable(json)
+        SetIsRoscoJson(roscoPlayable)
         setIsOpen(false)
       } catch (error) {
         console.error('Error al leer el archivo JSON:', error)
@@ -46,8 +52,7 @@ function ModalStartGame({ setIsOpen, SetIsRoscoJson }: Props) {
           text-white bg-blue-500 text-4xl font-bold w-100 h-16 rounded-lg
           hover:bg-blue-400 hover:text-blue-800
           md:text-5xl md:h-24 md:w-120"
-          onClick={() =>
-            fileInputRef.current?.click()}
+          onClick={() => fileInputRef.current?.click()}
         >
           Subir rosco c:
         </button>

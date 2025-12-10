@@ -24,9 +24,14 @@ function RouteComponent() {
 
   // para medir el tamaño del div contenedor.
   useEffect(() => {
-    if (roscoRef.current) {
-      setRadio(roscoRef.current.offsetWidth / 2)
-    }
+    if (!roscoRef.current) return
+    const observer = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        setRadio(entry.contentRect.width / 2)
+      }
+    })
+    observer.observe(roscoRef.current)
+    return () => observer.disconnect()
   }, [])
 
   const handleDownloadRosco = (rosco: Letter[]) => {
@@ -41,13 +46,6 @@ function RouteComponent() {
 
     URL.revokeObjectURL(url)
   }
-
-  //Eliminamos las letras que eliminamos para que no las renderize
-  useEffect(() => {
-    SetIsRoscoJson((prev) => {
-      return prev.filter((letra) => !letra.deleted)
-    })
-  }, [])
 
   return (
     <div className="h-screen">

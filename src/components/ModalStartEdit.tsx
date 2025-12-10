@@ -1,8 +1,9 @@
+import type { GameLetter } from '@/Models/Letra'
 import { useRef } from 'react'
 
 type Props = {
   setIsStarted: React.Dispatch<React.SetStateAction<boolean>>
-  SetIsRoscoJson: React.Dispatch<React.SetStateAction<EditLetra[]>>
+  SetIsRoscoJson: React.Dispatch<React.SetStateAction<GameLetter[]>>
 }
 
 function ModalStartEdit({ setIsStarted, SetIsRoscoJson }: Props) {
@@ -17,7 +18,7 @@ function ModalStartEdit({ setIsStarted, SetIsRoscoJson }: Props) {
     const reader = new FileReader()
     reader.onload = (event) => {
       try {
-        const json = JSON.parse(event.target?.result as string) as EditLetra[]
+        const json = JSON.parse(event.target?.result as string) as GameLetter[]
         SetIsRoscoJson(json)
         setIsStarted(false)
       } catch (error) {
@@ -30,7 +31,7 @@ function ModalStartEdit({ setIsStarted, SetIsRoscoJson }: Props) {
   return (
     <div
       id="EditModal"
-      className="absolute flex flex-col items-center justify-center inset-0 z-1 min-h-screen w-full bg-[url(./img/fondo1.webp)] bg-blue-100/100 bg-blend-overlay gap-5"
+      className="absolute flex flex-col items-center justify-center inset-0 z-1 min-h-screen w-full bg-[url(./img/fondo1.webp)] bg-blue-100 bg-blend-overlay gap-5"
     >
       <div>
         {/* Input oculto */}
