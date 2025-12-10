@@ -33,7 +33,7 @@ function ModalStartGame({ setIsOpen, SetIsRoscoJson }: Props) {
   return (
     <div
       id="EditModal"
-      className="absolute flex flex-col items-center justify-center min-h-screen w-full bg-[url(./img/fondo1.webp)] bg-blue-100/100 bg-blend-overlay inset-0 z-1"
+      className="absolute flex flex-col items-center justify-center min-h-screen w-full bg-[url(./img/fondo1.webp)] bg-blue-100 bg-blend-overlay inset-0 z-1"
     >
       <div>
         {/* Input oculto */}

@@ -1,5 +1,6 @@
 import type { Letter } from '@/Models/Letra'
 import { useState } from 'react'
+import { capitalize } from '@/utils/Capitalize'
 
 interface UseEditLetterProps {
   letra: string
@@ -25,13 +26,35 @@ function useEditLetter({
     deleted: thisLetter!.deleted,
   })
 
+  const handleEvaluateWord = (
+    type: Letter['type'],
+    correct: Letter['correct'],
+    Letter: Letter['letter'],
+  ) => {
+    const mayusLetter = Letter.toUpperCase()
+    const minusLetter = Letter.toLowerCase()
+    const containRegex = new RegExp(
+      `^(?![${mayusLetter}${minusLetter}]).*[${mayusLetter}${minusLetter}].*`,
+    )
+    const startRegex = new RegExp(`^[${mayusLetter}${minusLetter}].*`)
+
+    if (type === 'Contiene' && containRegex.test(correct)) {
+      return true
+    }
+    if (type === 'Parte' && startRegex.test(correct)) {
+      return true
+    }
+    alert('La palabra no cumple con el tipo seleccionado')
+    return false
+  }
+
   /* Esto se utiliza para actualizar el form cuando se utiliza un elemento del form */
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: capitalize(e.target.value),
     })
   }
 
@@ -63,6 +86,10 @@ function useEditLetter({
       formData.correct === ''
     ) {
       alert('Faltan Cosas >:L')
+      return
+    }
+    const isValid = handleEvaluateWord(formData.type, formData.correct, letra)
+    if (!isValid) {
       return
     }
 
