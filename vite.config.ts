@@ -41,6 +41,7 @@ export default defineConfig({
       }
     })
   ],
+  base: '/PasapalabrasEducativo/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

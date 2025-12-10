@@ -13,6 +13,7 @@ import { registerSW } from 'virtual:pwa-register'
 // Create a new router instance
 const router = createRouter({
   routeTree,
+  basepath: '/PasapalabrasEducativo',
   context: {},
   defaultPreload: 'intent',
   scrollRestoration: true,

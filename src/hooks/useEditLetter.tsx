@@ -33,10 +33,8 @@ function useEditLetter({
   ) => {
     const mayusLetter = Letter.toUpperCase()
     const minusLetter = Letter.toLowerCase()
-    const containRegex = new RegExp(
-      `^(?![${mayusLetter}${minusLetter}]).*[${mayusLetter}${minusLetter}].*`,
-    )
-    const startRegex = new RegExp(`^[${mayusLetter}${minusLetter}].*`)
+    const containRegex = new RegExp(`[${mayusLetter}${minusLetter}]`)
+    const startRegex = new RegExp(`^[${mayusLetter}${minusLetter}]`)
 
     if (type === 'Contiene' && containRegex.test(correct)) {
       return true
