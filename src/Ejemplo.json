@@ -1,152 +1,177 @@
 [
   {
-    "letra": "A",
-    "tipo": "Contiene",
-    "descripcion": "Capital de Grecia.",
-    "correcto": "Atenas"
+    "letter": "A",
+    "type": "Contiene",
+    "description": "Capital de Grecia.",
+    "correct": "Atenas",
+    "deleted": false
   },
   {
-    "letra": "B",
-    "tipo": "Parte",
-    "descripcion": "Animal grande y peludo que hiberna en invierno.",
-    "correcto": "Oso"
+    "letter": "B",
+    "type": "Parte",
+    "description": "Animal grande y peludo que hiberna en invierno.",
+    "correct": "Oso",
+    "deleted": false
   },
   {
-    "letra": "C",
-    "tipo": "Parte",
-    "descripcion": "Aparato que se usa para hacer llamadas telefónicas.",
-    "correcto": "Teléfono"
+    "letter": "C",
+    "type": "Parte",
+    "description": "Aparato que se usa para hacer llamadas telefónicas.",
+    "correct": "Teléfono",
+    "deleted": false
   },
   {
-    "letra": "D",
-    "tipo": "Parte",
-    "descripcion": "Día en que se celebra el nacimiento de una persona.",
-    "correcto": "Cumpleaños"
+    "letter": "D",
+    "type": "Parte",
+    "description": "Día en que se celebra el nacimiento de una persona.",
+    "correct": "Cumpleaños",
+    "deleted": false
   },
   {
-    "letra": "E",
-    "tipo": "Contiene",
-    "descripcion": "Animal con trompa muy grande.",
-    "correcto": "Elefante"
+    "letter": "E",
+    "type": "Contiene",
+    "description": "Animal con trompa muy grande.",
+    "correct": "Elefante",
+    "deleted": false
   },
   {
-    "letra": "F",
-    "tipo": "Parte",
-    "descripcion": "Lugar donde se cultivan plantas o hortalizas.",
-    "correcto": "Huerto"
+    "letter": "F",
+    "type": "Parte",
+    "description": "Lugar donde se cultivan plantas o hortalizas.",
+    "correct": "Huerto",
+    "deleted": false
   },
   {
-    "letra": "G",
-    "tipo": "Parte",
-    "descripcion": "Animal que da leche y hace 'muu'.",
-    "correcto": "Vaca"
+    "letter": "G",
+    "type": "Parte",
+    "description": "Animal que da leche y hace 'muu'.",
+    "correct": "Vaca",
+    "deleted": false
   },
   {
-    "letra": "H",
-    "tipo": "Parte",
-    "descripcion": "Lugar donde viven las personas, su vivienda.",
-    "correcto": "Casa"
+    "letter": "H",
+    "type": "Parte",
+    "description": "Lugar donde viven las personas, su vivienda.",
+    "correct": "Casa",
+    "deleted": false
   },
   {
-    "letra": "I",
-    "tipo": "Contiene",
-    "descripcion": "Continente donde se encuentra Italia.",
-    "correcto": "Europa"
+    "letter": "I",
+    "type": "Contiene",
+    "description": "Continente donde se encuentra Italia.",
+    "correct": "Europa",
+    "deleted": false
   },
   {
-    "letra": "J",
-    "tipo": "Parte",
-    "descripcion": "Objeto que se lanza y regresa a quien lo arrojó.",
-    "correcto": "Bumerán"
+    "letter": "J",
+    "type": "Parte",
+    "description": "Objeto que se lanza y regresa a quien lo arrojó.",
+    "correct": "Bumerán",
+    "deleted": false
   },
   {
-    "letra": "K",
-    "tipo": "Contiene",
-    "descripcion": "Deporte que se practica sobre hielo con un disco y palos.",
-    "correcto": "Hockey"
+    "letter": "K",
+    "type": "Contiene",
+    "description": "Deporte que se practica sobre hielo con un disco y palos.",
+    "correct": "Hockey",
+    "deleted": false
   },
   {
-    "letra": "L",
-    "tipo": "Contiene",
-    "descripcion": "Astro que ilumina la noche.",
-    "correcto": "Luna"
+    "letter": "L",
+    "type": "Contiene",
+    "description": "Astro que ilumina la noche.",
+    "correct": "Luna",
+    "deleted": false
   },
   {
-    "letra": "M",
-    "tipo": "Parte",
-    "descripcion": "Insecto que produce miel.",
-    "correcto": "Abeja"
+    "letter": "M",
+    "type": "Parte",
+    "description": "Insecto que produce miel.",
+    "correct": "Abeja",
+    "deleted": false
   },
   {
-    "letra": "N",
-    "tipo": "Contiene",
-    "descripcion": "Estación del año que sigue al otoño.",
-    "correcto": "Invierno"
+    "letter": "N",
+    "type": "Contiene",
+    "description": "Estación del año que sigue al otoño.",
+    "correct": "Invierno",
+    "deleted": false
   },
   {
-    "letra": "O",
-    "tipo": "Contiene",
-    "descripcion": "Animal marino con ocho brazos.",
-    "correcto": "Pulpo"
+    "letter": "O",
+    "type": "Contiene",
+    "description": "Animal marino con ocho brazos.",
+    "correct": "Pulpo",
+    "deleted": false
   },
   {
-    "letra": "P",
-    "tipo": "Parte",
-    "descripcion": "Fruta de color amarillo por fuera y blanca por dentro, con forma alargada.",
-    "correcto": "Banana"
+    "letter": "P",
+    "type": "Parte",
+    "description": "Fruta de color amarillo por fuera y blanca por dentro, con forma alargada.",
+    "correct": "Banana",
+    "deleted": false
   },
   {
-    "letra": "Q",
-    "tipo": "Contiene",
-    "descripcion": "Aparato que sirve para calentar agua rápidamente.",
-    "correcto": "Hervidor"
+    "letter": "Q",
+    "type": "Contiene",
+    "description": "Aparato que sirve para calentar agua rápidamente.",
+    "correct": "Hervidor",
+    "deleted": false
   },
   {
-    "letra": "R",
-    "tipo": "Parte",
-    "descripcion": "Animal que salta y tiene una bolsa para sus crías.",
-    "correcto": "Canguro"
+    "letter": "R",
+    "type": "Parte",
+    "description": "Animal que salta y tiene una bolsa para sus crías.",
+    "correct": "Canguro",
+    "deleted": false
   },
   {
-    "letra": "S",
-    "tipo": "Parte",
-    "descripcion": "Instrumento musical con cuerdas que se toca con arco.",
-    "correcto": "Violín"
+    "letter": "S",
+    "type": "Parte",
+    "description": "Instrumento musical con cuerdas que se toca con arco.",
+    "correct": "Violín",
+    "deleted": false
   },
   {
-    "letra": "T",
-    "tipo": "Parte",
-    "descripcion": "Animal que pone huevos y tiene un caparazón duro.",
-    "correcto": "Tortuga"
+    "letter": "T",
+    "type": "Parte",
+    "description": "Animal que pone huevos y tiene un caparazón duro.",
+    "correct": "Tortuga",
+    "deleted": false
   },
   {
-    "letra": "U",
-    "tipo": "Contiene",
-    "descripcion": "País de América del Sur famoso por su carne y su mate.",
-    "correcto": "Uruguay"
+    "letter": "U",
+    "type": "Contiene",
+    "description": "País de América del Sur famoso por su carne y su mate.",
+    "correct": "Uruguay",
+    "deleted": false
   },
   {
-    "letra": "V",
-    "tipo": "Parte",
-    "descripcion": "Vehículo que se usa para viajar por el aire.",
-    "correcto": "Avión"
+    "letter": "V",
+    "type": "Parte",
+    "description": "Vehículo que se usa para viajar por el aire.",
+    "correct": "Avión",
+    "deleted": false
   },
   {
-    "letra": "X",
-    "tipo": "Contiene",
-    "descripcion": "Instrumento musical con placas de metal o madera que se golpean con baquetas.",
-    "correcto": "Xilófono"
+    "letter": "X",
+    "type": "Contiene",
+    "description": "Instrumento musical con placas de metal o madera que se golpean con baquetas.",
+    "correct": "Xilófono",
+    "deleted": false
   },
   {
-    "letra": "Y",
-    "tipo": "Contiene",
-    "descripcion": "Lugar donde se fabrican objetos o se reparan cosas.",
-    "correcto": "Taller"
+    "letter": "Y",
+    "type": "Contiene",
+    "description": "Lugar donde se fabrican objetos o se reparan cosas.",
+    "correct": "Taller",
+    "deleted": false
   },
   {
-    "letra": "Z",
-    "tipo": "Contiene",
-    "descripcion": "Lugar donde viven los animales para que la gente los visite.",
-    "correcto": "Zoológico"
+    "letter": "Z",
+    "type": "Contiene",
+    "description": "Lugar donde viven los animales para que la gente los visite.",
+    "correct": "Zoológico",
+    "deleted": false
   }
 ]

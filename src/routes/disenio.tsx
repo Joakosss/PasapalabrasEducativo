@@ -1,21 +1,23 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
 import VacioJson from '../Vacio.json'
-import Modal from '@/components/Modal'
+import Modal from '@/components/EditForm/EditLetterModal'
 import ModalStartEdit from '@/components/ModalStartEdit'
 
+import type { Letter } from '@/Models/Letra'
+import RoscoEdit from '@/components/Roscos/RoscoEdit'
 export const Route = createFileRoute('/disenio')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  const [IsRoscoJson, SetIsRoscoJson] = useState<EditLetra[]>(VacioJson)
+  const [IsRoscoJson, SetIsRoscoJson] = useState<Letter[]>(
+    VacioJson as Letter[],
+  )
   const [isOpen, setIsOpen] = useState<boolean>(false) // Para abrir y cerrar el modal
   const [isSelected, setIsSelected] = useState<string>('A') // Para abrir y cerrar el modal
   const [isStarted, setIsStarted] = useState<boolean>(true) // Para abrir y cerrar el modal de inicio
 
-  const NUM_LETRAS = VacioJson.length
-  const ANGULO_POR_LETRA = 360 / NUM_LETRAS
   // --- LÓGICA DE LAYOUT ---
   const [radio, setRadio] = useState(0)
   const roscoRef = useRef<HTMLDivElement | null>(null)
@@ -27,7 +29,7 @@ function RouteComponent() {
     }
   }, [])
 
-  const handleDownloadRosco = (rosco: EditLetra[]) => {
+  const handleDownloadRosco = (rosco: Letter[]) => {
     const json = JSON.stringify(rosco, null, 2)
     const blob = new Blob([json], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
@@ -40,8 +42,15 @@ function RouteComponent() {
     URL.revokeObjectURL(url)
   }
 
+  //Eliminamos las letras que eliminamos para que no las renderize
+  useEffect(() => {
+    SetIsRoscoJson((prev) => {
+      return prev.filter((letra) => !letra.deleted)
+    })
+  }, [])
+
   return (
-    <div className='h-screen'>
+    <div className="h-screen">
       {isStarted && (
         <ModalStartEdit
           setIsStarted={setIsStarted}
@@ -51,20 +60,21 @@ function RouteComponent() {
       )}
 
       {/* Rosco completo en el componente */}
-      <RoscoEditando
-        ANGULO_POR_LETRA={ANGULO_POR_LETRA}
+      <RoscoEdit
         IsRoscoJson={IsRoscoJson}
-        radio={radio}
-        roscoRef={roscoRef}
         setIsOpen={setIsOpen}
         setIsSelected={setIsSelected}
+        radio={radio}
+        roscoRef={roscoRef}
         key={'RoscoEditando'}
       >
         {/* Titulo */}
-        <h2 className="text-5xl font-extrabold pt-5 text-center text-blue-800">Editando</h2>
+        <h2 className="text-5xl font-extrabold pt-5 text-center text-blue-800">
+          Editando
+        </h2>
 
         {/* Boton de guardar */}
-        <div className='flex justify-center'>
+        <div className="flex justify-center">
           <button
             type="button"
             className="
@@ -78,7 +88,7 @@ function RouteComponent() {
             Guardar
           </button>
         </div>
-      </RoscoEditando>
+      </RoscoEdit>
 
       {/* Aqui tengo el modal mi amorrr C: */}
       {isOpen && (
@@ -90,83 +100,5 @@ function RouteComponent() {
         />
       )}
     </div>
-  )
-}
-
-type PropsRosco = {
-  roscoRef: React.RefObject<HTMLDivElement | null>
-  radio: number
-  IsRoscoJson: EditLetra[]
-  ANGULO_POR_LETRA: number
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-  setIsSelected: React.Dispatch<React.SetStateAction<string>>
-  children: React.ReactNode
-}
-
-function RoscoEditando({
-  roscoRef,
-  radio,
-  IsRoscoJson,
-  ANGULO_POR_LETRA,
-  setIsOpen,
-  setIsSelected,
-  children
-}: PropsRosco) {
-  return (
-    <>
-      <div className="flex items-center justify-center h-screen">
-        <div
-          ref={roscoRef}
-          className="relative w-[400px] h-[400px] md:w-[600px] md:h-[600px] xl:w-[800px] xl:h-[800px]  rounded-full border-2 border-gray-400"
-        >
-          <section className='flex flex-col items-center justify-center gap-20 h-[80%]'>
-            {children}
-          </section>
-          {radio > 0 &&
-            IsRoscoJson.map((letra, index) => {
-              const angulo = ANGULO_POR_LETRA * index
-
-              // 1. Estilo para el contenedor de la letra (el que rota)
-              const estiloPosicion: React.CSSProperties = {
-                position: 'absolute' as const,
-                top: '50%',
-                left: '50%',
-                // El orden es clave:
-                // 1. Mover al centro
-                // 2. Girar
-                // 3. Empujar hacia afuera (el radio)
-                transform: `
-              translate(-50%, -50%) 
-              rotate(${angulo}deg) 
-              translateY(-${radio}px)
-              `,
-              }
-
-              // 2. Estilo para la letra (la que rota al revés)
-              const estiloLetra = {
-                transform: `rotate(-${angulo}deg)`,
-              }
-
-              return (
-                <>
-                  <div key={letra.descripcion} style={estiloPosicion}>
-                    {/* Este div visible contiene la letra y la mantiene derecha */}
-                    <div
-                      style={estiloLetra}
-                      className={`w-11 h-11 md:w-14 md:h-14 xl:w-20 xl:h-20 text-lg md:text-xl lg:text-2xl xl:text-3xl rounded-full flex items-center justify-center font-bold text-white hover:cursor-pointer ${letra.descripcion ? 'bg-green-700 hover:bg-green-900' : 'bg-gray-500 hover:bg-gray-700'}`}
-                      onClick={() => {
-                        setIsOpen(true)
-                        setIsSelected(letra.letra)
-                      }}
-                    >
-                      {letra.letra}
-                    </div>
-                  </div>
-                </>
-              )
-            })}
-        </div>
-      </div>
-    </>
   )
 }
