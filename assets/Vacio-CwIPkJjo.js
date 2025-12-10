@@ -1,1 +1,0 @@
-const a=[{letra:"A"},{letra:"B"},{letra:"C"},{letra:"D"},{letra:"E"},{letra:"F"},{letra:"G"},{letra:"H"},{letra:"I"},{letra:"J"},{letra:"K"},{letra:"L"},{letra:"M"},{letra:"N"},{letra:"O"},{letra:"P"},{letra:"Q"},{letra:"R"},{letra:"S"},{letra:"T"},{letra:"U"},{letra:"V"},{letra:"X"},{letra:"Y"},{letra:"Z"}];export{a as V};
