@@ -33,7 +33,7 @@ function ModalStartGame({ setIsOpen, SetIsRoscoJson }: Props) {
   return (
     <div
       id="EditModal"
-      className="absolute flex flex-col items-center justify-center min-h-screen w-full bg-[url(./img/fondo1.webp)] bg-blue-100 bg-blend-overlay inset-0 z-1"
+      className="absolute flex flex-col items-center justify-center min-h-screen disabled bg-[url(./img/fondo1.webp)] bg-blue-100 bg-blend-overlay inset-0 z-1"
     >
       <div>
         {/* Input oculto */}
@@ -49,7 +49,7 @@ function ModalStartGame({ setIsOpen, SetIsRoscoJson }: Props) {
           type="button"
           className="
           flex items-center gap-2 justify-center text-center
-          text-white bg-blue-500 text-4xl font-bold w-100 h-16 rounded-lg
+          text-white bg-blue-500 text-4xl font-bold w-90 h-16 rounded-lg
           hover:bg-blue-400 hover:text-blue-800
           md:text-5xl md:h-24 md:w-120"
           onClick={() => fileInputRef.current?.click()}
