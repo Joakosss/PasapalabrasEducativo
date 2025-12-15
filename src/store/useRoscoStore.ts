@@ -9,25 +9,32 @@ o si al usuario se le cae el internet o se le apaga el pc
 ---------------------------------------------------------------- */
 
 interface RoscoStoreType {
+  /* Datos de los roscos */
   roscoPlaying: GameLetter[]
   roscoEditing: Letter[]
+  roscoCountPlaying: number
+  /* Funciones de los roscos */
   setRoscoPlaying: (roscoPlaying: GameLetter[]) => void
   setRoscoEditing: (roscoEditing: Letter[]) => void
+  setRoscoCountPlaying: (roscoCountPlaying: number) => void
   clearRoscoPlaying: () => void
   clearRoscoEditing: () => void
+  handleNextTurnPlaying: (newState: GameLetter['state']) => void
 }
 
 export const useRoscoStore = create<RoscoStoreType>()(
   persist(
-    (set) => ({
+    (set,get) => ({
       roscoPlaying: [] as GameLetter[],
       roscoEditing: [] as Letter[],
-      setRoscoPlaying: (roscoPlaying: GameLetter[]) =>
-        set(() => ({ roscoPlaying })),
-      setRoscoEditing: (roscoEditing: Letter[]) =>
-        set(() => ({ roscoEditing })),
+      roscoCountPlaying: 0,
+      setRoscoPlaying: (roscoPlaying: GameLetter[]) => set({ roscoPlaying }),
+
+      setRoscoEditing: (roscoEditing: Letter[]) => set({ roscoEditing }),
+      setRoscoCountPlaying: (roscoCountPlaying: number) => set({ roscoCountPlaying }),
       clearRoscoPlaying: () => set(() => ({ roscoPlaying: [] })),
       clearRoscoEditing: () => set(() => ({ roscoEditing: [] })),
+      handleNextTurnPlaying:()=>void
     }),
     {
       name: 'roscoStore',

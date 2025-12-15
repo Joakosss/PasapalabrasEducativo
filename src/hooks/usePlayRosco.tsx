@@ -1,10 +1,15 @@
 import type { GameLetter } from '@/Models/Letra'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { useRoscoStore } from '../store/useRoscoStore'
+
 interface usePlayRoscoProps {
   initialData: GameLetter[]
 }
 
 function usePlayRosco({ initialData }: usePlayRoscoProps) {
+  /* importamos nuestro store C: */
+  const { setRoscoPlaying, roscoPlaying, clearRoscoPlaying } = useRoscoStore()
+
   const [IsRoscoJson, SetIsRoscoJson] = useState<GameLetter[]>(initialData)
   const [isContador, setIsContador] = useState<number>(0)
   // --- LÓGICA DE LAYOUT ---
@@ -31,7 +36,7 @@ function usePlayRosco({ initialData }: usePlayRoscoProps) {
   }
 
   const handleNextTurn = (newState: GameLetter['state']) => {
-    SetIsRoscoJson((prev) => {
+    setRoscoPlaying((prev) => {
       const updated = prev.map((item, idx) =>
         idx === isContador ? { ...item, state: newState } : item,
       )
@@ -57,7 +62,6 @@ function usePlayRosco({ initialData }: usePlayRoscoProps) {
   }, [])
   return {
     IsRoscoJson,
-    SetIsRoscoJson,
     isContador,
     radio,
     roscoRef,

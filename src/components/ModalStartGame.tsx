@@ -1,12 +1,14 @@
 import type { GameLetter } from '@/Models/Letra'
+import { useRoscoStore } from '@/store/useRoscoStore'
 import { useRef } from 'react'
 
 type Props = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-  SetIsRoscoJson: React.Dispatch<React.SetStateAction<GameLetter[]>>
 }
 
-function ModalStartGame({ setIsOpen, SetIsRoscoJson }: Props) {
+function ModalStartGame({ setIsOpen }: Props) {
+  /* Importamos nuestra funcion para guardar el rosco en nuestro store */
+  const { setRoscoPlaying } = useRoscoStore()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   const onlyRoscoPlayable = (rosco: GameLetter[]) => {
@@ -21,7 +23,7 @@ function ModalStartGame({ setIsOpen, SetIsRoscoJson }: Props) {
       try {
         const json = JSON.parse(event.target?.result as string) as GameLetter[]
         const roscoPlayable = onlyRoscoPlayable(json)
-        SetIsRoscoJson(roscoPlayable)
+        setRoscoPlaying(roscoPlayable)
         setIsOpen(false)
       } catch (error) {
         console.error('Error al leer el archivo JSON:', error)

@@ -12,15 +12,8 @@ export const Route = createFileRoute('/game')({
 })
 
 function RouteComponent() {
-  const {
-    IsRoscoJson,
-    SetIsRoscoJson,
-    handleNextTurn,
-    isContador,
-    isWinner,
-    radio,
-    roscoRef,
-  } = usePlayRosco({ initialData: VacioJson as GameLetter[] })
+  const { IsRoscoJson, handleNextTurn, isContador, isWinner, radio, roscoRef } =
+    usePlayRosco({ initialData: VacioJson as GameLetter[] })
 
   const [isOpen, setIsOpen] = useState<boolean>(true) // Usar este para el modal de subir tu juego
 
@@ -87,9 +80,7 @@ function RouteComponent() {
             )}
         </RoscoGame>
       </section>
-      {isOpen && (
-        <ModalStartGame SetIsRoscoJson={SetIsRoscoJson} setIsOpen={setIsOpen} />
-      )}
+      {isOpen && <ModalStartGame setIsOpen={setIsOpen} />}
     </>
   )
 }
