@@ -1,20 +1,17 @@
 import type { Letter } from '@/Models/Letra'
 import { useState } from 'react'
 import { capitalize } from '@/utils/Capitalize'
+import { useRoscoStore } from '@/store/useRoscoStore'
 
 interface UseEditLetterProps {
   letra: string
   JsonRosco: Letter[]
   setModal: React.Dispatch<React.SetStateAction<boolean>>
-  SetIsRoscoJson: React.Dispatch<React.SetStateAction<Letter[]>>
 }
 
-function useEditLetter({
-  letra,
-  JsonRosco,
-  setModal,
-  SetIsRoscoJson,
-}: UseEditLetterProps) {
+function useEditLetter({ letra, JsonRosco, setModal }: UseEditLetterProps) {
+  const { setRoscoEditing } = useRoscoStore()
+
   const thisLetter = JsonRosco.find((item) => item.letter === letra)
 
   // Creo un state para el formulario completo
@@ -70,7 +67,7 @@ function useEditLetter({
           ...updatedFormData, // <-- Sobrescribe con las propiedades nuevas (ej: 'pregunta')
         }
       })
-      SetIsRoscoJson(newJsonRosco)
+      setRoscoEditing(newJsonRosco)
       setModal(false)
     }
   }

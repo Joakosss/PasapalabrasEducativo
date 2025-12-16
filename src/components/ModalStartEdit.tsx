@@ -1,15 +1,21 @@
 import type { GameLetter } from '@/Models/Letra'
+import { useRoscoStore } from '@/store/useRoscoStore'
+import IsPendingRosco from '@/utils/IsPendingRosco'
 import { useRef } from 'react'
+import { FaPlay } from 'react-icons/fa'
+import { FaArrowRotateLeft, FaPenToSquare } from 'react-icons/fa6'
 
 type Props = {
   setIsStarted: React.Dispatch<React.SetStateAction<boolean>>
-  SetIsRoscoJson: React.Dispatch<React.SetStateAction<GameLetter[]>>
 }
 
-function ModalStartEdit({ setIsStarted, SetIsRoscoJson }: Props) {
+function ModalStartEdit({ setIsStarted }: Props) {
+  const { roscoEditing, clearRoscoEditing, setRoscoEditing } = useRoscoStore()
+
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   const handleNewGame = () => {
+    clearRoscoEditing()
     setIsStarted(false)
   }
   const handleLoadGame = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,7 +25,7 @@ function ModalStartEdit({ setIsStarted, SetIsRoscoJson }: Props) {
     reader.onload = (event) => {
       try {
         const json = JSON.parse(event.target?.result as string) as GameLetter[]
-        SetIsRoscoJson(json)
+        setRoscoEditing(json)
         setIsStarted(false)
       } catch (error) {
         console.error('Error al leer el archivo JSON:', error)
@@ -33,41 +39,51 @@ function ModalStartEdit({ setIsStarted, SetIsRoscoJson }: Props) {
       id="EditModal"
       className="absolute flex flex-col items-center justify-center inset-0 z-1 min-h-screen w-full bg-[url(./img/fondo1.webp)] bg-blue-100 bg-blend-overlay gap-5"
     >
-      <div>
-        {/* Input oculto */}
-        <input
-          type="file"
-          ref={fileInputRef}
-          className="hidden"
-          onChange={handleLoadGame}
-        />
+      {/* Input oculto */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        className="hidden"
+        onChange={handleLoadGame}
+      />
 
-        {/* Botón visible con tu estilo */}
+      {/* Botón visible con tu estilo */}
+      <button
+        type="button"
+        className="
+            flex items-center gap-2 justify-center text-center
+            text-white bg-blue-500 md:w-120 text-[clamp(2rem,2.5vw,3rem)] font-bold w-100 h-24 rounded-lg
+            hover:bg-blue-400 hover:text-blue-800"
+        onClick={() => fileInputRef.current?.click()}
+      >
+        <FaPlay />
+        Editar rosco
+      </button>
+
+      <button
+        type="button"
+        className="
+            flex items-center gap-2 justify-center text-center
+            text-white bg-blue-500 md:w-120 text-[clamp(2rem,2.5vw,3rem)] font-bold w-100 h-24 rounded-lg
+            hover:bg-blue-400 hover:text-blue-800"
+        onClick={handleNewGame}
+      >
+        <FaPenToSquare />
+        Nuevo Juego
+      </button>
+      {IsPendingRosco(roscoEditing) && (
         <button
           type="button"
           className="
-            flex items-center gap-2 justify-center text-center
-            text-white bg-blue-500 text-5xl font-bold w-100 h-24 rounded-lg
-            hover:bg-blue-400 hover:text-blue-800
-            md:w-120"
-          onClick={() => fileInputRef.current?.click()}
+        flex items-center gap-2 justify-center text-center
+        text-white bg-blue-500 md:w-120 text-[clamp(2rem,2.5vw,3rem)] font-bold w-100 h-24 rounded-lg
+        hover:bg-blue-400 hover:text-blue-800"
+          onClick={() => setIsStarted(false)}
         >
-          Editar rosco
+          <FaArrowRotateLeft />
+          Seguir Editando
         </button>
-      </div>
-      <div>
-        <button
-          type="button"
-          className="
-            flex items-center gap-2 justify-center text-center
-            text-white bg-blue-500 text-5xl font-bold w-100 h-24 rounded-lg
-            hover:bg-blue-400 hover:text-blue-800
-            md:w-120"
-          onClick={handleNewGame}
-        >
-          Nuevo Juego
-        </button>
-      </div>
+      )}
     </div>
   )
 }

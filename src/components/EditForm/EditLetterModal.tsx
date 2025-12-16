@@ -7,21 +7,13 @@ type EditLetterModalProps = {
   letra: string
   JsonRosco: Letter[]
   setModal: React.Dispatch<React.SetStateAction<boolean>>
-  SetIsRoscoJson: React.Dispatch<React.SetStateAction<Letter[]>>
 }
 
-function EditLetterModal({
-  letra,
-  JsonRosco,
-  setModal,
-  SetIsRoscoJson,
-}: EditLetterModalProps) {
-  /* Utilizamos nuestro custom HOOK de editar letras C; */
+function EditLetterModal({ letra, JsonRosco, setModal }: EditLetterModalProps) {
   const { formData, handleChange, handleDelete, handleSubmit } = useEditLetter({
     letra,
     JsonRosco,
     setModal,
-    SetIsRoscoJson,
   })
 
   /* Opciones de radio */

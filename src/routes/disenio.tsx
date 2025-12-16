@@ -1,38 +1,24 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useEffect, useRef, useState } from 'react'
-import VacioJson from '../Vacio.json'
-import Modal from '@/components/EditForm/EditLetterModal'
+import { useState } from 'react'
+import useBuildRosco from '@/hooks/useBuildRosco'
+import EditLetterModal from '@/components/EditForm/EditLetterModal'
 import ModalStartEdit from '@/components/ModalStartEdit'
 
 import type { Letter } from '@/Models/Letra'
 import RoscoEdit from '@/components/Roscos/RoscoEdit'
+import { useRoscoStore } from '@/store/useRoscoStore'
 export const Route = createFileRoute('/disenio')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  const [IsRoscoJson, SetIsRoscoJson] = useState<Letter[]>(
-    VacioJson as Letter[],
-  )
+  const { roscoEditing: IsRoscoJson } = useRoscoStore()
   const [isOpen, setIsOpen] = useState<boolean>(false) // Para abrir y cerrar el modal
   const [isSelected, setIsSelected] = useState<string>('A') // Para abrir y cerrar el modal
   const [isStarted, setIsStarted] = useState<boolean>(true) // Para abrir y cerrar el modal de inicio
 
   // --- LÓGICA DE LAYOUT ---
-  const [radio, setRadio] = useState(0)
-  const roscoRef = useRef<HTMLDivElement | null>(null)
-
-  // para medir el tamaño del div contenedor.
-  useEffect(() => {
-    if (!roscoRef.current) return
-    const observer = new ResizeObserver((entries) => {
-      for (let entry of entries) {
-        setRadio(entry.contentRect.width / 2)
-      }
-    })
-    observer.observe(roscoRef.current)
-    return () => observer.disconnect()
-  }, [])
+  const { radio, roscoRef } = useBuildRosco()
 
   const handleDownloadRosco = (rosco: Letter[]) => {
     const json = JSON.stringify(rosco, null, 2)
@@ -50,11 +36,7 @@ function RouteComponent() {
   return (
     <div className="h-screen">
       {isStarted && (
-        <ModalStartEdit
-          setIsStarted={setIsStarted}
-          SetIsRoscoJson={SetIsRoscoJson}
-          key={'StartModal'}
-        />
+        <ModalStartEdit setIsStarted={setIsStarted} key={'StartModal'} />
       )}
 
       {/* Rosco completo en el componente */}
@@ -90,11 +72,10 @@ function RouteComponent() {
 
       {/* Aqui tengo el modal mi amorrr C: */}
       {isOpen && (
-        <Modal
+        <EditLetterModal
           letra={isSelected}
           setModal={setIsOpen}
           JsonRosco={IsRoscoJson}
-          SetIsRoscoJson={SetIsRoscoJson}
         />
       )}
     </div>

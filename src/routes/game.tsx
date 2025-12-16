@@ -4,8 +4,8 @@ import ModalStartGame from '@/components/ModalStartGame'
 import { FireworksBackground } from '@/components/ui/shadcn-io/fireworks-background'
 import RoscoGame from '@/components/Roscos/RoscoGame'
 import { useRoscoStore } from '@/store/useRoscoStore'
-import useBuildRosco from '@/hooks/usePlayRosco'
-import usePendingPlayingGame from '@/utils/IsPendingPlayingGame'
+import useBuildRosco from '@/hooks/useBuildRosco'
+import usePendingPlayingGame from '@/utils/IsPendingRosco'
 
 export const Route = createFileRoute('/game')({
   component: RouteComponent,
