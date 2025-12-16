@@ -1,21 +1,18 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useState } from 'react'
-import VacioJson from '../Vacio.json'
 import ModalStartGame from '@/components/ModalStartGame'
 import { FireworksBackground } from '@/components/ui/shadcn-io/fireworks-background'
 import RoscoGame from '@/components/Roscos/RoscoGame'
-import type { GameLetter } from '@/Models/Letra'
-import usePlayRosco from '@/hooks/usePlayRosco'
 import { useRoscoStore } from '@/store/useRoscoStore'
+import useBuildRosco from '@/hooks/usePlayRosco'
+import usePendingPlayingGame from '@/utils/IsPendingPlayingGame'
 
 export const Route = createFileRoute('/game')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  const { radio, roscoRef } = usePlayRosco({
-    initialData: VacioJson as GameLetter[],
-  })
+  const { radio, roscoRef } = useBuildRosco()
 
   const {
     roscoPlaying,
@@ -29,7 +26,9 @@ function RouteComponent() {
   return (
     <>
       {/* Modal de subir rosco */}
-      {isOpen && <ModalStartGame setIsOpen={setIsOpen} />}
+      {!usePendingPlayingGame(roscoPlaying) && isOpen && (
+        <ModalStartGame setIsOpen={setIsOpen} />
+      )}
 
       {/* Modal de Fireworks */}
       {isWinner && <EndGame />}
