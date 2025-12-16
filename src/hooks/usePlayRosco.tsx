@@ -8,7 +8,6 @@ interface usePlayRoscoProps {
 
 function usePlayRosco({ initialData }: usePlayRoscoProps) {
   /* importamos nuestro store C: */
-  const { setRoscoPlaying, roscoPlaying, clearRoscoPlaying } = useRoscoStore()
 
   const [IsRoscoJson, SetIsRoscoJson] = useState<GameLetter[]>(initialData)
   const [isContador, setIsContador] = useState<number>(0)
@@ -36,7 +35,7 @@ function usePlayRosco({ initialData }: usePlayRoscoProps) {
   }
 
   const handleNextTurn = (newState: GameLetter['state']) => {
-    setRoscoPlaying((prev) => {
+    SetIsRoscoJson((prev) => {
       const updated = prev.map((item, idx) =>
         idx === isContador ? { ...item, state: newState } : item,
       )

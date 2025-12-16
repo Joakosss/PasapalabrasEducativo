@@ -9,6 +9,7 @@ type Props = {
 function ModalStartGame({ setIsOpen }: Props) {
   /* Importamos nuestra funcion para guardar el rosco en nuestro store */
   const { setRoscoPlaying } = useRoscoStore()
+
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   const onlyRoscoPlayable = (rosco: GameLetter[]) => {
@@ -35,7 +36,7 @@ function ModalStartGame({ setIsOpen }: Props) {
   return (
     <div
       id="EditModal"
-      className="absolute flex flex-col items-center justify-center min-h-screen disabled bg-[url(./img/fondo1.webp)] bg-blue-100 bg-blend-overlay inset-0 z-1"
+      className="absolute flex flex-col items-center justify-center min-h-screen disabled bg-[url(./img/fondo1.webp)] bg-blue-100 bg-blend-overlay inset-0 z-89"
     >
       <div>
         {/* Input oculto */}
