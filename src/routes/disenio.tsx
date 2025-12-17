@@ -7,12 +7,14 @@ import ModalStartEdit from '@/components/ModalStartEdit'
 import type { Letter } from '@/Models/Letra'
 import RoscoEdit from '@/components/Roscos/RoscoEdit'
 import { useRoscoStore } from '@/store/useRoscoStore'
+import { FaDownload } from 'react-icons/fa'
 export const Route = createFileRoute('/disenio')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
   const { roscoEditing: IsRoscoJson } = useRoscoStore()
+  const [isRoscoName, setIsRoscoName] = useState('Nuevo Rosco')
   const [isOpen, setIsOpen] = useState<boolean>(false) // Para abrir y cerrar el modal
   const [isSelected, setIsSelected] = useState<string>('A') // Para abrir y cerrar el modal
   const [isStarted, setIsStarted] = useState<boolean>(true) // Para abrir y cerrar el modal de inicio
@@ -27,7 +29,7 @@ function RouteComponent() {
 
     const a = document.createElement('a')
     a.href = url
-    a.download = 'rosco.json'
+    a.download = `${isRoscoName}.json` // nombre del archivo Esto tenemos que modificarlo
     a.click()
 
     URL.revokeObjectURL(url)
@@ -36,7 +38,11 @@ function RouteComponent() {
   return (
     <div className="h-screen">
       {isStarted && (
-        <ModalStartEdit setIsStarted={setIsStarted} key={'StartModal'} />
+        <ModalStartEdit
+          setIsStarted={setIsStarted}
+          setIsRoscoName={setIsRoscoName}
+          key={'StartModal'}
+        />
       )}
 
       {/* Rosco completo en el componente */}
@@ -49,6 +55,12 @@ function RouteComponent() {
         key={'RoscoEditando'}
       >
         {/* Titulo */}
+        <input
+          className="text-3xl font-extrabold py-2 text-center  text-blue-800 cursor-pointer border-2"
+          value={isRoscoName}
+          onChange={(e) => setIsRoscoName(e.target.value)}
+        />
+
         <h2 className="text-5xl font-extrabold pt-5 text-center text-blue-800">
           Editando
         </h2>
@@ -65,6 +77,7 @@ function RouteComponent() {
               handleDownloadRosco(IsRoscoJson)
             }}
           >
+            <FaDownload />
             Guardar
           </button>
         </div>

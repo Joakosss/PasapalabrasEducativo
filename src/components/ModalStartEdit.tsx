@@ -7,9 +7,10 @@ import { FaArrowRotateLeft, FaPenToSquare } from 'react-icons/fa6'
 
 type Props = {
   setIsStarted: React.Dispatch<React.SetStateAction<boolean>>
+  setIsRoscoName: React.Dispatch<React.SetStateAction<string>>
 }
 
-function ModalStartEdit({ setIsStarted }: Props) {
+function ModalStartEdit({ setIsStarted, setIsRoscoName }: Props) {
   const { roscoEditing, clearRoscoEditing, setRoscoEditing } = useRoscoStore()
 
   const fileInputRef = useRef<HTMLInputElement | null>(null)
@@ -27,6 +28,8 @@ function ModalStartEdit({ setIsStarted }: Props) {
         const json = JSON.parse(event.target?.result as string) as GameLetter[]
         setRoscoEditing(json)
         setIsStarted(false)
+        /* Aqui podemos acceder a el titulo del archivo */
+        setIsRoscoName(file.name.replace(/\.json$/i, ''))
       } catch (error) {
         console.error('Error al leer el archivo JSON:', error)
       }
